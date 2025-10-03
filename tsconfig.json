@@ -45,6 +45,9 @@
       "@modules/*": [
         "src/app/*"
       ],
+      "@store/*": [
+        "src/app/core/store/*"
+      ],
     }
   },
   "angularCompilerOptions": {
