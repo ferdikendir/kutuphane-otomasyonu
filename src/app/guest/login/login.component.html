@@ -19,6 +19,12 @@
 
       <button (click)="login()" mat-raised-button color="primary">Giriş</button>
 
+      @if (errorMessage) {
+      <mat-error class="my-2">
+        {{ errorMessage }}
+      </mat-error>
+      }
+
     </div>
   </div>
 

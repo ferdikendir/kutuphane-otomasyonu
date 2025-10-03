@@ -33,6 +33,11 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   width: 100%;
 }
 
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 
 html,
 body {

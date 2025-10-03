@@ -4,6 +4,8 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
+import { AuthService } from '@services/auth.service';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +16,8 @@ export const appConfig: ApplicationConfig = {
       useValue: {
         appearance: 'outline',
       } satisfies MatFormFieldDefaultOptions
-    }
+    },
+    provideHttpClient(),
+    AuthService
   ]
 };
