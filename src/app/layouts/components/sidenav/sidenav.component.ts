@@ -24,31 +24,6 @@ export class SidenavComponent {
         label: "Books",
         icon: "menu_book",
         route: "/books"
-      },
-      {
-        label: "Authors",
-        icon: "people",
-        route: "/authors"
-      },
-      {
-        label: "Categories",
-        icon: "category",
-        route: "/categories"
-      },
-      {
-        label: "Publishers",
-        icon: "local_library",
-        route: "/publishers"
-      },
-      {
-        label: "Users",
-        icon: "person",
-        route: "/users"
-      },
-      {
-        label: "Loans",
-        icon: "assignment",
-        route: "/loans"
       }
     ]
   }
