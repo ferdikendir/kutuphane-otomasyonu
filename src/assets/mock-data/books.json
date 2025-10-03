@@ -1,0 +1,23 @@
+[
+  {
+    "isbn": "978-3-16-148410-0",
+    "name": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "edition": "1st",
+    "year": 1925
+  },
+  {
+    "isbn": "978-0-14-118263-6",
+    "name": "1984",
+    "author": "George Orwell",
+    "edition": "1st",
+    "year": 1949
+  },
+  {
+    "isbn": "978-0-452-28423-4",
+    "name": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "edition": "1st",
+    "year": 1960
+  }
+]

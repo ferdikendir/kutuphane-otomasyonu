@@ -3,6 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "@models/user.model";
 import { Observable, map, tap } from "rxjs";
+import { dispatchUser } from "@modules/core/store/user.store";
 
 @Injectable({
   providedIn: "root",
@@ -14,6 +15,14 @@ export class AuthService {
 
   private isAuthenticated = false;
 
+  constructor() {
+    const user = this.getCurrentUser();
+    this.isAuthenticated = !!user;
+    if (this.isLoggedIn()) {
+      dispatchUser(user ?? {});
+    }
+  }
+
   login(username: string, password: string): Observable<User | undefined> {
 
     return this.httpClient.get<User[]>('assets/mock-data/users.json').pipe(
@@ -21,10 +30,10 @@ export class AuthService {
       tap(user => {
         this.isAuthenticated = !!user;
 
-        if (this.isLoggedIn()) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.router.navigate(['/dashboard']);
-        }
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatchUser(user ?? {});
+        this.router.navigate(['/dashboard']);
+
       })
     );
 
@@ -36,7 +45,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return !!this.getCurrentUser() ?? this.isAuthenticated;
   }
 
   getCurrentUser(): User | null {
