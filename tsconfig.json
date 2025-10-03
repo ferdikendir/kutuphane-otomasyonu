@@ -48,6 +48,9 @@
       "@store/*": [
         "src/app/core/store/*"
       ],
+      "@layouts/*": [
+        "src/app/layouts/*"
+      ],
     }
   },
   "angularCompilerOptions": {
