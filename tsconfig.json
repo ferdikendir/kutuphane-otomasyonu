@@ -42,6 +42,9 @@
       "@directives/*": [
         "src/app/shared/directives/*"
       ],
+      "@modules/*": [
+        "src/app/*"
+      ],
     }
   },
   "angularCompilerOptions": {
