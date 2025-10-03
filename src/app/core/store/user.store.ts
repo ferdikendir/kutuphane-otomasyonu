@@ -1,5 +1,5 @@
 import { User } from "@models/user.model";
-import { Store } from "../base/store";
+import { Store } from "./base/store";
 
 const initialState: Partial<User> = {};
 

@@ -1,6 +1,11 @@
-import { Component } from "@angular/core";
-import { user } from "@modules/core/store/user/user.store";
+import { Component, DestroyRef, computed, effect, inject, signal } from "@angular/core";
+import { user } from "@modules/core/store/user.store";
 import { MatTableModule } from "@angular/material/table";
+import { DashboardService } from "@services/dashboard.service";
+import { BookUser } from "@models/book-user.model";
+import { finalize } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { dispatchMyBooks, myBooks } from "@modules/core/store/dashboard.store";
 
 @Component({
   selector: "library-dashboard",
@@ -9,16 +14,44 @@ import { MatTableModule } from "@angular/material/table";
   standalone: true,
   imports: [
     MatTableModule
+  ],
+  providers: [
+    DashboardService
   ]
 })
 
 export class DashboardComponent {
 
-  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year', 'status'];
+  private readonly dashboardService = inject(DashboardService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  dataSource = [];
+  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year', 'date', 'deadline'];
 
-  userStore = user;
+  dataSource: BookUser[] = [];
 
-  constructor() { }
+  loading = signal(true);
+
+  userStore = computed(() => user());
+
+  dashboardStore = computed(() => myBooks());
+
+  constructor() {
+
+    effect(() => {
+
+      this.dashboardService.getMyBooks(this.userStore().id as string).pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loading.set(false))
+      ).subscribe((data) => {
+        dispatchMyBooks(data);
+      });
+
+    });
+
+    effect(() => {
+      this.dataSource = this.dashboardStore();
+    });
+
+  }
+
 }
