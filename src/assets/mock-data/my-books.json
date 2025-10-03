@@ -1,0 +1,59 @@
+[
+  {
+    "isbn": "978-3-16-148410-0",
+    "book": {
+      "isbn": "978-3-16-148410-0",
+      "name": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "edition": "1st",
+      "year": 1925
+    },
+    "userId": 2,
+    "user": {
+      "id": 2,
+      "name": "Bob Smith",
+      "username": "user",
+      "role": "user"
+    },
+    "date": "2023-10-01",
+    "deadline": "2023-10-15"
+  },
+  {
+    "isbn": "978-0-14-118263-6",
+    "book": {
+      "isbn": "978-0-14-118263-6",
+      "name": "1984",
+      "author": "George Orwell",
+      "edition": "1st",
+      "year": 1949
+    },
+    "userId": 1,
+    "user": {
+      "id": 1,
+      "name": "Alice Johnson",
+      "username": "admin",
+      "role": "admin"
+    },
+    "date": "2023-10-01",
+    "deadline": "2023-10-15"
+  },
+  {
+    "isbn": "978-0-452-28423-4",
+    "boook": {
+      "isbn": "978-0-452-28423-4",
+      "name": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "edition": "1st",
+      "year": 1960
+    },
+    "userId": 3,
+    "user": {
+      "id": 3,
+      "name": "Charlie Brown",
+      "username": "guest",
+      "role": "guest"
+    },
+    "date": "2023-10-01",
+    "deadline": "2023-10-15"
+  }
+]
