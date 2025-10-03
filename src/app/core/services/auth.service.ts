@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return !!this.getCurrentUser() ?? this.isAuthenticated;
   }
 
   getCurrentUser(): User | null {
