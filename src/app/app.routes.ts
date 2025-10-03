@@ -3,6 +3,7 @@ import { authGuard } from '@guards/auth.guard';
 import { guestGuard } from '@guards/guest.guard';
 import { DashboardComponent } from '@modules/dashboard/dashboard.component';
 import { LayoutComponent } from '@layouts/layout/layout.component';
+import { BookComponent } from '@modules/book/book.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,11 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'books',
+        component: BookComponent,
         canActivate: [authGuard]
       }
     ]
