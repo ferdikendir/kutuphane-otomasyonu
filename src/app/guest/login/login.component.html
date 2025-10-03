@@ -1,0 +1,31 @@
+<div class="h-100 w-100 flex justify-center align-center">
+
+  <div class="login-container">
+
+    <h2 class="header">Kütüphane Yazılım Sistemine Giriş</h2>
+
+    <div class="login-form" [formGroup]="form">
+
+      <mat-form-field>
+        <mat-label>Kullanıcı Adı</mat-label>
+        <input matInput placeholder="Kullanıcı Adı" formControlName="username" required />
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Şifre</mat-label>
+        <input matInput placeholder="Şifre" formControlName="password" type="password" />
+      </mat-form-field>
+
+      <button (click)="login()" mat-raised-button color="primary">Giriş</button>
+
+      @if (errorMessage) {
+      <mat-error class="my-2">
+        {{ errorMessage }}
+      </mat-error>
+      }
+
+    </div>
+  </div>
+
+</div>

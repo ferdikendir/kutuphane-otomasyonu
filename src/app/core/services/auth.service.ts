@@ -1,0 +1,52 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable, inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { User } from "@models/user.model";
+import { Observable, map, tap } from "rxjs";
+
+@Injectable({
+  providedIn: "root",
+})
+export class AuthService {
+
+  private readonly httpClient = inject(HttpClient);
+  private readonly router = inject(Router);
+
+  private isAuthenticated = false;
+
+  login(username: string, password: string): Observable<User | undefined> {
+
+    return this.httpClient.get<User[]>('assets/mock-data/users.json').pipe(
+      map(users => users.find((user: User) => user.username === username && user.password === password)),
+      tap(user => {
+        this.isAuthenticated = !!user;
+
+        if (this.isLoggedIn()) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['/dashboard']);
+        }
+      })
+    );
+
+  }
+
+  logout(): void {
+    this.isAuthenticated = false;
+    localStorage.removeItem('user');
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
+  getCurrentUser(): User | null {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) as User : null;
+  }
+
+  isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'admin';
+  }
+
+}
