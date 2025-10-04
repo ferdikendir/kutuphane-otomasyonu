@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "library-header",
   template: `
-    <div class="flex justify-between">
+    <div class="flex justify-between align-center">
     <p class="grow-1">
       Welcome to the Dashboard! {{ userStore().name }}
     </p>
