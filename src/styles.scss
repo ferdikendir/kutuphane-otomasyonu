@@ -17,6 +17,10 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   display: flex;
 }
 
+.gap-1 {
+  gap: 1rem;
+}
+
 .justify-center {
   justify-items: center;
 }
