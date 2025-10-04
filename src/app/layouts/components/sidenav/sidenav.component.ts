@@ -19,12 +19,12 @@ export class SidenavComponent {
   sidenav: Sidenav = {
     items: [
       {
-        label: "Anasayfa",
+        label: "Dashboard",
         icon: "home",
         route: "/dashboard"
       },
       {
-        label: "Kitaplar",
+        label: "Books",
         icon: "menu_book",
         route: "/books",
         permission: "admin"
