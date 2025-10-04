@@ -6,6 +6,8 @@ import { BookUser } from "@models/book-user.model";
 import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { dispatchMyBooks, myBooks } from "@modules/core/store/dashboard.store";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { DateDiffPipe } from "@pipes/date-diff.pipe";
 
 @Component({
   selector: "library-dashboard",
@@ -13,7 +15,9 @@ import { dispatchMyBooks, myBooks } from "@modules/core/store/dashboard.store";
   styleUrls: ["./dashboard.component.scss"],
   standalone: true,
   imports: [
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
+    DateDiffPipe
   ],
   providers: [
     DashboardService

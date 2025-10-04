@@ -61,5 +61,6 @@
 
 
   <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumns;"
+    [matTooltip]="'Teslim tarihine ' + (row.date |dateDiff : row.deadline: 'day') + ' gün kaldı.'"></tr>
 </table>

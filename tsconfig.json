@@ -42,6 +42,9 @@
       "@directives/*": [
         "src/app/shared/directives/*"
       ],
+      "@pipes/*": [
+        "src/app/shared/pipes/*"
+      ],
       "@modules/*": [
         "src/app/*"
       ],
