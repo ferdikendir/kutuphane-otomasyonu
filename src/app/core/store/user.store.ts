@@ -8,3 +8,5 @@ const userStore = new Store<Partial<User>>(initialState);
 export const user = userStore.select();
 
 export const dispatchUser = (newState: Partial<User>): void => userStore.set(newState);
+
+export const clearUser = (): void => userStore.clear();

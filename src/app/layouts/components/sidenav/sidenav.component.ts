@@ -1,3 +1,4 @@
+import { user } from '@modules/core/store/user.store';
 import { Component } from "@angular/core";
 import { Sidenav } from "@models/sidenav.model";
 import { SidenavItemComponent } from "../sidenav-item/sidenav-item.component";
@@ -13,6 +14,8 @@ import { SidenavItemComponent } from "../sidenav-item/sidenav-item.component";
 })
 export class SidenavComponent {
 
+  readonly userState = user();
+
   sidenav: Sidenav = {
     items: [
       {
@@ -21,11 +24,21 @@ export class SidenavComponent {
         route: "/dashboard"
       },
       {
-        label: "Books",
+        label: "Kitaplar",
         icon: "menu_book",
-        route: "/books"
+        route: "/books",
+        permission: "admin"
       }
     ]
+  }
+
+  get sidenavItems() {
+    return this.sidenav.items.filter(item => {
+      if (!item.permission) {
+        return true;
+      }
+      return this.userState?.role?.includes(item.permission);
+    });
   }
 
 }
