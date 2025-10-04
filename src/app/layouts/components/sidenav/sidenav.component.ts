@@ -24,7 +24,7 @@ export class SidenavComponent {
         route: "/dashboard"
       },
       {
-        label: "Books",
+        label: "Kitaplar",
         icon: "menu_book",
         route: "/books",
         permission: "admin"
