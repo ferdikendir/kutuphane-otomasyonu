@@ -34,3 +34,7 @@ export const removeBook = (isbn: string): void => {
     books: state.books.filter(book => book.isbn !== isbn)
   }));
 }
+
+export const clearBooks = (): void => {
+  bookStore.clear();
+};
