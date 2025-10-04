@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
 
+@import 'ngx-toastr/toastr';
+
 @include mat.core();
 
 $primary: mat.define-palette(mat.$indigo-palette);
@@ -29,6 +31,14 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   justify-items: center;
 }
 
+.justify-end {
+  justify-content: flex-end !important;
+}
+
+.justify-between {
+  justify-content: space-between !important;
+}
+
 .align-center {
   align-items: center;
 }
@@ -44,6 +54,20 @@ $theme: mat.define-light-theme((color: (primary: $primary,
 .my-2 {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.my-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.mt-2 {
+  margin-top: 16px;
+}
+
+.mx-3 {
+  margin-left: 24px;
+  margin-right: 24px;
 }
 
 

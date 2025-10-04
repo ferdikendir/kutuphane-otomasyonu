@@ -8,6 +8,10 @@ import { BookService } from "@services/book.service";
 import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { BookAvailableDirective } from "@directives/book-available.directive";
+import {
+  MatDialog
+} from '@angular/material/dialog';
+import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-detail-form-dialog.component";
 
 @Component({
   selector: "library-book",
@@ -28,6 +32,7 @@ export class BookComponent {
 
   private readonly bookService = inject(BookService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
 
   bookStore = computed(() => books())
 
@@ -54,6 +59,19 @@ export class BookComponent {
       this.dataSource = this.bookStore();
     });
 
+  }
+
+  addNewBook() {
+    this.dialog.open(BookDetailFormDialogComponent, {
+      width: '400px'
+    });
+  }
+
+  updateBook(book: Book) {
+    this.dialog.open(BookDetailFormDialogComponent, {
+      width: '400px',
+      data: book
+    });
   }
 
 }
