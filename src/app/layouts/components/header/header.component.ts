@@ -1,12 +1,20 @@
-import { Component, computed } from "@angular/core";
-import { user } from "@modules/core/store/user.store";
+import { Component, computed, inject } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { clearBooks } from "@store/book.store";
+import { clearMyBooks } from "@store/dashboard.store";
+import { clearUser, user } from "@store/user.store";
+import { AuthService } from "@services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "library-header",
   template: `
-    <p>
+    <div class="flex justify-between align-center">
+    <p class="grow-1">
       Welcome to the Dashboard! {{ userStore().name }}
     </p>
+    <button mat-flat-button color="warn" (click)="logout()">Çıkış yap</button>
+  </div>
   `,
   styles: `
   :host {
@@ -25,10 +33,27 @@ import { user } from "@modules/core/store/user.store";
     font-weight: bold;
   }
   `,
-  standalone: true
+  standalone: true,
+  imports: [
+    MatButtonModule
+  ]
 })
 export class HeaderComponent {
 
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
   userStore = computed(() => user());
+
+  logout = () => {
+    this.authService.logout();
+
+    clearMyBooks();
+    clearBooks();
+    clearUser();
+
+    this.router.navigateByUrl("/auth/login");
+
+  }
 
 }

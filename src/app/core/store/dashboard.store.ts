@@ -16,3 +16,5 @@ export const myBooks = dashboardStore.select(s => s.myBooks);
 export const dispatchMyBooks = (newState: BookUser[]): void => {
   dashboardStore.set({ myBooks: newState });
 };
+
+export const clearMyBooks = () => dashboardStore.clear();

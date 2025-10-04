@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>{{editMode() ? data.name : 'Add a new book'}}</h2>
+<mat-dialog-content>
+
+  <mat-divider></mat-divider>
+
+  <div class="mt-2" [formGroup]="bookForm">
+
+    <mat-form-field class="w-100">
+      <mat-label>ISBN</mat-label>
+      <input matInput formControlName="isbn">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Book Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Author</mat-label>
+      <input matInput formControlName="author">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Edition</mat-label>
+      <input matInput formControlName="edition">
+    </mat-form-field>
+
+
+    <mat-form-field class="w-100">
+      <mat-label>Year</mat-label>
+      <input matInput formControlName="year">
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions class="mx-3 my-0 flex justify-between">
+  <div>
+
+    @if (editMode()) {
+    <button mat-flat-button (click)="onClickRemove()" color="warn">Remove from Library</button>
+    }
+
+  </div>
+
+  <div>
+    <button mat-flat-button (click)="onNoClick()">Cancel</button>
+    <button mat-flat-button cdkFocusInitial color="primary" (click)="onSaveClick()">Save</button>
+  </div>
+</mat-dialog-actions>
