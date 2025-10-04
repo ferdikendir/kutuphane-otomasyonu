@@ -8,9 +8,9 @@ import moment from 'moment';
 })
 export class DateDiffPipe implements PipeTransform {
 
-  transform(value: moment.Moment, diffWith: moment.Moment, unit: 'day' | 'hour' | 'minute', precise?: boolean): number | undefined {
+  transform(value: moment.Moment, diffWith: moment.Moment, unit: 'day' | 'hour' | 'minute', precise?: boolean): number {
     if (!value) {
-      return;
+      return 0;
     }
 
     let date = moment(value).clone();

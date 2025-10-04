@@ -29,7 +29,6 @@ export class WidgetComponent {
     return bookUsers.filter(bookUser => {
       const dateDiff = this.dateDiffPipe.transform(moment(bookUser.deadline), moment(), 'day') ?? -1;
 
-      console.log('Date Diff:', dateDiff, 'for book:');
       if (dateDiff <= max && dateDiff >= min) {
         return true;
       }
