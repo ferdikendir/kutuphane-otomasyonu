@@ -1,9 +1,13 @@
-import { Component, signal } from "@angular/core";
+import { Component, DestroyRef, computed, effect, inject, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Book } from "@models/book.model";
+import { books, dispatchBooks } from "@store/book.store";
 import { DateDiffPipe } from "@pipes/date-diff.pipe";
+import { BookService } from "@services/book.service";
+import { finalize } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "library-book",
@@ -16,37 +20,40 @@ import { DateDiffPipe } from "@pipes/date-diff.pipe";
     DateDiffPipe,
     MatButtonModule
   ],
+  providers: [
+    BookService
+  ]
 })
 export class BookComponent {
-  books = [
-    {
-      isbn: "978-3-16-148410-0",
-      name: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      edition: "1st",
-      year: 1925
-    },
-    {
-      isbn: "978-0-14-118263-6",
-      name: "1984",
-      author: "George Orwell",
-      edition: "1st",
-      year: 1949
-    },
-    {
-      isbn: "978-0-452-28423-4",
-      name: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      edition: "1st",
-      year: 1960
-    }
-  ];
 
+  private readonly bookService = inject(BookService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  bookStore = computed(() => books())
 
   tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
 
-  dataSource: Book[] = this.books;
+  dataSource: Book[] = [];
 
   loading = signal(true);
+
+  constructor() {
+
+    effect(() => {
+
+      this.bookService.getAllBooks().pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loading.set(false))
+      ).subscribe((data: Book[]) => {
+        dispatchBooks(data);
+      });
+
+    });
+
+    effect(() => {
+      this.dataSource = this.bookStore();
+    });
+
+  }
 
 }

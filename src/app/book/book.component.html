@@ -1,6 +1,6 @@
 <div class="table-header align-center flex">
   <p class="grow-1">Kitaplar</p>
-  <button mat-button class="mx-2" color="primart">Yeni kitap ekle</button>
+  <button mat-flat-button class="mx-2" color="primary">Yeni kitap ekle</button>
 </div>
 
 
@@ -49,6 +49,5 @@
 
 
   <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: tableColumns;"
-    [matTooltip]="'Teslim tarihine ' + (row.date |dateDiff : row.deadline: 'day') + ' gün kaldı.'"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumns;" [matTooltip]="''"></tr>
 </table>
