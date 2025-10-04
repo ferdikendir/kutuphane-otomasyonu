@@ -19,5 +19,54 @@
     "author": "Harper Lee",
     "edition": "1st",
     "year": 1960
+  },
+  {
+    "isbn": "978-0-7432-7356-5",
+    "name": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "edition": "1st",
+    "year": 2003
+  },
+  {
+    "isbn": "978-1-56619-909-4",
+    "name": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "edition": "1st",
+    "year": 1951
+  },
+  {
+    "isbn": "978-0-670-81302-8",
+    "name": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "edition": "1st",
+    "year": 1937
+  },
+  {
+    "isbn": "978-0-7432-7356-6",
+    "name": "Angels & Demons",
+    "author": "Dan Brown",
+    "edition": "1st",
+    "year": 2000
+  },
+  {
+    "isbn": "978-0-452-28425-8",
+    "name": "Brave New World",
+    "author": "Aldous Huxley",
+    "edition": "1st",
+    "year": 1932
+  },
+  {
+    "isbn": "978-0-7432-7356-7",
+    "name": "Deception Point",
+    "author": "Dan Brown",
+    "edition": "1st",
+    "year": 2001
+  },
+  {
+    "isbn": "978-0-452-28426-5",
+    "name": "Fahrenheit 451",
+    "author": "Ray Bradbury",
+    "edition": "1st",
+    "year": 1953
   }
 ]

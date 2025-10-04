@@ -4,10 +4,10 @@ import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Book } from "@models/book.model";
 import { books, dispatchBooks } from "@store/book.store";
-import { DateDiffPipe } from "@pipes/date-diff.pipe";
 import { BookService } from "@services/book.service";
 import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { BookAvailableDirective } from "@directives/book-available.directive";
 
 @Component({
   selector: "library-book",
@@ -17,8 +17,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   imports: [
     MatTableModule,
     MatTooltipModule,
-    DateDiffPipe,
-    MatButtonModule
+    BookAvailableDirective,
+    MatButtonModule,
   ],
   providers: [
     BookService
