@@ -19,6 +19,14 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   display: flex;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
 .gap-1 {
   gap: 1rem;
 }
@@ -49,6 +57,10 @@ $theme: mat.define-light-theme((color: (primary: $primary,
 
 .w-100 {
   width: 100%;
+}
+
+.w-50 {
+  width: 50%;
 }
 
 .my-2 {

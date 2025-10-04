@@ -12,6 +12,7 @@ import {
   MatDialog
 } from '@angular/material/dialog';
 import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-detail-form-dialog.component";
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: "library-book",
@@ -23,6 +24,7 @@ import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-de
     MatTooltipModule,
     BookAvailableDirective,
     MatButtonModule,
+    MatDivider
   ],
   providers: [
     BookService

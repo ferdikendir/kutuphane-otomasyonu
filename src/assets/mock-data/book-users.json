@@ -11,12 +11,10 @@
     "userId": 2,
     "user": {
       "id": 2,
-      "name": "Bob Smith",
-      "username": "user",
-      "role": "user"
+      "name": "Bob Smith"
     },
-    "date": "2023-10-01",
-    "deadline": "2023-10-05"
+    "date": "2025-10-01",
+    "deadline": "2025-10-05"
   },
   {
     "isbn": "978-0-14-118263-6",
@@ -30,12 +28,10 @@
     "userId": 1,
     "user": {
       "id": 1,
-      "name": "Alice Johnson",
-      "username": "admin",
-      "role": "admin"
+      "name": "Alice Johnson"
     },
-    "date": "2023-10-01",
-    "deadline": "2023-10-11"
+    "date": "2025-10-01",
+    "deadline": "2025-10-11"
   },
   {
     "isbn": "978-0-452-28423-4",
@@ -49,12 +45,10 @@
     "userId": 3,
     "user": {
       "id": 3,
-      "name": "Charlie Brown",
-      "username": "guest",
-      "role": "guest"
+      "name": "Charlie Brown"
     },
-    "date": "2023-10-01",
-    "deadline": "2023-10-07"
+    "date": "2025-10-01",
+    "deadline": "2025-10-07"
   },
   {
     "isbn": "978-0-7432-7356-5",
@@ -68,11 +62,26 @@
     "userId": 1,
     "user": {
       "id": 1,
-      "name": "Alice Johnson",
-      "username": "admin",
-      "role": "admin"
+      "name": "Alice Johnson"
     },
-    "date": "2023-10-01",
-    "deadline": "2023-10-10"
+    "date": "2025-10-01",
+    "deadline": "2025-10-05"
+  },
+  {
+    "isbn": "978-0-452-28426-5",
+    "book": {
+      "isbn": "978-0-452-28426-5",
+      "name": "Fahrenheit 451",
+      "author": "Ray Bradbury",
+      "edition": "1st",
+      "year": 1953
+    },
+    "userId": 1,
+    "user": {
+      "id": 1,
+      "name": "Alice Johnson"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-02"
   }
 ]

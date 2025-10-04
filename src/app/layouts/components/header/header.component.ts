@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
     <p class="grow-1">
       Welcome to the Dashboard! {{ userStore().name }}
     </p>
-    <button mat-flat-button color="warn" (click)="logout()">Çıkış yap</button>
+    <button mat-flat-button color="warn" (click)="logout()">Logout</button>
   </div>
   `,
   styles: `
