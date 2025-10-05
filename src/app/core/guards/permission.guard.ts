@@ -11,7 +11,7 @@ export const permissionGuard = (route: ActivatedRouteSnapshot, state: RouterStat
 
   const requiredRoles = route.data['roles'] as Array<string>;
 
-  const hasPermission = requiredRoles ? (requiredRoles.includes(userState.role) || userState.role === 'admin') : true;
+  const hasPermission = requiredRoles ? requiredRoles.includes(userState.role) : true;
 
   if (!hasPermission) {
     return router.parseUrl('/error-403');
