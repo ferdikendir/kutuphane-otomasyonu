@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, computed, effect } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { user } from "@store/user.store";
 
 @Component({
   selector: "library-error-403",
@@ -7,7 +8,7 @@ import { RouterLink } from "@angular/router";
     <div class="error-container">
       <h1>403 - Forbidden</h1>
       <p>You do not have permission to access this page.</p>
-      <a routerLink="/dashboard">Go to Dashboard</a>
+      <a [routerLink]="role === 'admin' ? '/admin-dashboard' : '/dashboard'">Go to Dashboard</a>
     </div>
   `,
   styles: `
@@ -41,4 +42,17 @@ import { RouterLink } from "@angular/router";
     RouterLink
   ]
 })
-export class Error403Component { }
+export class Error403Component {
+
+  role: string = '';
+
+  userState = computed(() => user());
+
+  constructor() {
+    effect(() => {
+      this.role = this.userState().role as string
+    });
+
+  }
+
+}
