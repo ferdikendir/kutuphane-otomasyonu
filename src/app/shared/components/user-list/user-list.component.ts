@@ -1,6 +1,7 @@
 import { Component, computed, effect } from "@angular/core";
 import { MatDivider } from "@angular/material/divider";
 import { MatTableModule } from "@angular/material/table";
+import { UserRoleDirective } from "@directives/user-role.directive";
 import { User } from "@models/user.model";
 import { allUsers } from "@modules/core/store/book-users.store";
 
@@ -11,7 +12,8 @@ import { allUsers } from "@modules/core/store/book-users.store";
   standalone: true,
   imports: [
     MatTableModule,
-    MatDivider
+    MatDivider,
+    UserRoleDirective
   ],
 })
 export class UserListComponent {
