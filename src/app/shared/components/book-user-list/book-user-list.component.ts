@@ -2,6 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, computed, effect } from "@angular/core";
 import { MatDivider } from "@angular/material/divider";
 import { MatTableModule } from "@angular/material/table";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { BookUser } from "@models/book-user.model";
 import { allBookUsers } from "@modules/core/store/book-users.store";
 import { DateDiffPipe } from "@pipes/date-diff.pipe";
@@ -16,7 +17,8 @@ import moment from "moment";
     MatTableModule,
     MatDivider,
     DateDiffPipe,
-    NgClass
+    NgClass,
+    MatTooltipModule
   ]
 })
 export class BookUserListComponent {

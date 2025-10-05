@@ -43,16 +43,30 @@ export class BookAvailableDirective {
       if (data) {
 
         this.book.available = false;
-        this.book.availableInfo = `Kitap Mevcut Değil! ${this.dateDiffPipe.transform(moment(data.date), moment(data.deadline), 'day')} gün içinde iade edilecek.`;
-        this.matTooltip.message = this.book.availableInfo;
-        this.matTooltip.show();
+
+        const dateDiff = this.dateDiffPipe.transform(moment(), moment(data.deadline), 'day');
+
+        if (dateDiff! < 0) {
+
+          this.book.availableInfo = `Kitap Gecikmiş! ${-dateDiff} gün önce iade edilmeliydi.`;
+
+        } else if (dateDiff === 0) {
+
+          this.book.availableInfo = 'Kitap Bugün İade Edilecek!';
+
+        } else {
+
+          this.book.availableInfo = `Kitap Mevcut Değil! ${dateDiff} gün içinde iade edilecek.`;
+
+        }
 
       } else {
         this.book.available = true;
         this.book.availableInfo = 'Kitap Mevcut!';
-        this.matTooltip.message = this.book.availableInfo;
-        this.matTooltip.show();
       }
+
+      this.matTooltip.message = this.book.availableInfo;
+      this.matTooltip.show();
 
     });
 
