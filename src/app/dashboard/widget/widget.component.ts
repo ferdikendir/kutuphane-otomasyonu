@@ -9,9 +9,6 @@ import { BookUser } from "@models/book-user.model";
   templateUrl: "./widget.component.html",
   styleUrls: ["./widget.component.scss"],
   standalone: true,
-  imports: [
-    DateDiffPipe
-  ],
   providers: [
     DateDiffPipe
   ]
@@ -21,7 +18,7 @@ export class WidgetComponent {
   private readonly dateDiffPipe = inject(DateDiffPipe);
 
 
-  thisWeek = computed(() => this.calculateDateDiff(myBooks(), 7, 2));
+  thisWeek = computed(() => this.calculateDateDiff(myBooks(), 7, 0));
 
   today = computed(() => this.calculateDateDiff(myBooks(), 1, 0));
 
