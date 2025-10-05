@@ -22,6 +22,9 @@ export class WidgetComponent {
 
   today = computed(() => this.calculateDateDiff(myBooks(), 1, 0));
 
+  overdue = computed(() => this.calculateDateDiff(myBooks(), -1, -Infinity));
+
+
   private calculateDateDiff(bookUsers: BookUser[], max: number = 7, min: number = 0): number {
     return bookUsers.filter(bookUser => {
       const dateDiff = this.dateDiffPipe.transform(moment(), moment(bookUser.deadline), 'day') ?? -1;
