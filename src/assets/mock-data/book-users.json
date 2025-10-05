@@ -35,7 +35,7 @@
   },
   {
     "isbn": "978-0-452-28423-4",
-    "boook": {
+    "book": {
       "isbn": "978-0-452-28423-4",
       "name": "To Kill a Mockingbird",
       "author": "Harper Lee",
@@ -83,5 +83,107 @@
     },
     "date": "2025-10-01",
     "deadline": "2025-10-02"
+  },
+  {
+    "isbn": "978-1-56619-909-4",
+    "book": {
+      "isbn": "978-1-56619-909-4",
+      "name": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "edition": "1st",
+      "year": 1951
+    },
+    "userId": 2,
+    "user": {
+      "id": 2,
+      "name": "Bob Smith"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-06"
+  },
+  {
+    "isbn": "978-0-670-81302-8",
+    "book": {
+      "isbn": "978-0-670-81302-8",
+      "name": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "edition": "1st",
+      "year": 1937
+    },
+    "userId": 3,
+    "user": {
+      "id": 3,
+      "name": "Charlie Brown"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-08"
+  },
+  {
+    "isbn": "978-0-7432-7356-6",
+    "book": {
+      "isbn": "978-0-7432-7356-6",
+      "name": "Angels & Demons",
+      "author": "Dan Brown",
+      "edition": "1st",
+      "year": 2000
+    },
+    "userId": 2,
+    "user": {
+      "id": 2,
+      "name": "Bob Smith"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-10"
+  },
+  {
+    "isbn": "978-0-7432-7356-7",
+    "book": {
+      "isbn": "978-0-7432-7356-7",
+      "name": "Deception Point",
+      "author": "Dan Brown",
+      "edition": "1st",
+      "year": 2001
+    },
+    "userId": 1,
+    "user": {
+      "id": 1,
+      "name": "Alice Johnson"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-03"
+  },
+  {
+    "isbn": "978-0-7432-7356-8",
+    "book": {
+      "isbn": "978-0-7432-7356-8",
+      "name": "Digital Fortress",
+      "author": "Dan Brown",
+      "edition": "1st",
+      "year": 1998
+    },
+    "userId": 3,
+    "user": {
+      "id": 3,
+      "name": "Charlie Brown"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-09"
+  },
+  {
+    "isbn": "978-0-452-28425-8",
+    "book": {
+      "isbn": "978-0-452-28425-8",
+      "name": "Brave New World",
+      "author": "Aldous Huxley",
+      "edition": "1st",
+      "year": 1932
+    },
+    "userId": 2,
+    "user": {
+      "id": 2,
+      "name": "Bob Smith"
+    },
+    "date": "2025-10-01",
+    "deadline": "2025-10-04"
   }
 ]

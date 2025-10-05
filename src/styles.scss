@@ -55,12 +55,20 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   height: 100%;
 }
 
+.h-40 {
+  height: 40%;
+}
+
 .w-100 {
   width: 100%;
 }
 
 .w-50 {
   width: 50%;
+}
+
+.mt-2 {
+  margin-top: 2rem;
 }
 
 .my-2 {
@@ -131,4 +139,16 @@ body {
 
 .bg-yellow {
   background-color: rgb(255, 193, 7, .3) !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.text-black {
+  color: #000 !important;
 }

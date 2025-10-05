@@ -9,7 +9,10 @@ export const guestGuard = () => {
   const isAuthenticated = authService.isLoggedIn() ?? false;
 
   if (isAuthenticated) {
-    return router.parseUrl('/dashboard');
+    console.log(authService.isAdmin());
+    return router.parseUrl(
+      authService.isAdmin() ? '/admin-dashboard' : '/dashboard'
+    );
   }
 
   return true;
