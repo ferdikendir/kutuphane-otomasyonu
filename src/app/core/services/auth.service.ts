@@ -32,7 +32,9 @@ export class AuthService {
 
         localStorage.setItem('user', JSON.stringify(user));
         dispatchUser(user ?? {});
-        this.router.navigate(['/dashboard']);
+        this.router.navigate([
+          user?.role === 'admin' ? '/admin-dashboard' : '/dashboard'
+        ]);
 
       })
     );
