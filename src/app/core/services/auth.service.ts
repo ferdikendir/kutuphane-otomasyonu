@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "@models/user.model";
 import { Observable, map, tap } from "rxjs";
-import { dispatchUser } from "@modules/core/store/user.store";
+import { dispatchUser } from "@store/user.store";
 
 @Injectable({
   providedIn: "root",
@@ -32,7 +32,9 @@ export class AuthService {
 
         localStorage.setItem('user', JSON.stringify(user));
         dispatchUser(user ?? {});
-        this.router.navigate(['/dashboard']);
+        this.router.navigate([
+          user?.role === 'admin' ? '/admin-dashboard' : '/dashboard'
+        ]);
 
       })
     );

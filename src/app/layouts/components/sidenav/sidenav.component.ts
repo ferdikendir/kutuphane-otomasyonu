@@ -21,7 +21,14 @@ export class SidenavComponent {
       {
         label: "Dashboard",
         icon: "home",
-        route: "/dashboard"
+        route: "/dashboard",
+        permission: "user"
+      },
+      {
+        label: "Admin Dashboard",
+        icon: "home",
+        route: "/admin-dashboard",
+        permission: "admin"
       },
       {
         label: "Books",
