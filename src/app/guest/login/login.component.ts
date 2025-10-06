@@ -4,6 +4,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { AuthService } from "@services/auth.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "library-login",
@@ -14,7 +15,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    RouterLink
   ]
 })
 export class LoginComponent {

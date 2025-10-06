@@ -17,7 +17,9 @@
         <input matInput placeholder="Şifre" formControlName="password" type="password" />
       </mat-form-field>
 
-      <button (click)="login()" mat-raised-button color="primary" [disabled]="form.invalid">Giriş</button>
+      <button (click)="login()" mat-raised-button color="primary" [disabled]="form.invalid">Login</button>
+
+      <button class="mt-2" [routerLink]="'/auth/register'" mat-raised-button color="primary">Register</button>
 
       @if (errorMessage) {
       <mat-error class="my-2">

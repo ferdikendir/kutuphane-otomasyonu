@@ -1,0 +1,47 @@
+<div class="form-panel" [formGroup]="form">
+
+  <h2 class="header">Register</h2>
+
+  <mat-form-field class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter your name" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Surname</mat-label>
+    <input matInput placeholder="Enter your surname" formControlName="surname" />
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Enter your username" formControlName="username" />
+  </mat-form-field>
+
+
+  <mat-form-field class="w-100">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Enter your password" type="password" formControlName="password" />
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput placeholder="Enter your password" type="password" formControlName="confirmPassword" />
+  </mat-form-field>
+
+  @if(password && confirmPassword && !passwordIsMatch) {
+
+  <mat-error>Passwords is not match!</mat-error>
+
+  }
+
+
+  <div class="flex justify-between">
+
+    <button class="mt-2" mat-flat-button cdkFocusInitial color="primary" [routerLink]="'/auth/login'">Login</button>
+
+    <button class="mt-2" mat-flat-button cdkFocusInitial color="primary" [disabled]="form.invalid || !passwordIsMatch"
+      (click)="onRegisterClick()">Register</button>
+
+  </div>
+
+</div>

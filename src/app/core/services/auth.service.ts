@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { User } from "@models/user.model";
 import { Observable, map, tap } from "rxjs";
 import { dispatchUser } from "@store/user.store";
+import { AuthRequestModel } from "@models/auth.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -25,7 +27,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<User | undefined> {
 
-    return this.httpClient.get<User[]>('assets/mock-data/users.json').pipe(
+    return this.httpClient.post<User[]>('http://localhost:8080/api/auth/login', { username, password }).pipe(
       map(users => users.find((user: User) => user.username === username && user.password === password)),
       tap(user => {
         this.isAuthenticated = !!user;
@@ -58,6 +60,10 @@ export class AuthService {
   isAdmin(): boolean {
     const user = this.getCurrentUser();
     return user?.role === 'admin';
+  }
+
+  register(request: AuthRequestModel): Observable<User> {
+    return this.httpClient.post<User>(environment.apiUrl + 'auth/register', request);
   }
 
 }
