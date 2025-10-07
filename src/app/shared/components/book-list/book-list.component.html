@@ -33,11 +33,14 @@
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
 
       <div class="flex justify-center align-center ">
-        <button mat-flat-button color="primary" class="action-button"> Borrow
-        </button>
+        <span [matTooltip]="'The book is not available for borrowing.'" [matTooltipDisabled]="element.available">
+          <button mat-flat-button color="primary" class="action-button" [disabled]="!element.available"
+            (click)="emitBorrowBook.emit(element)"> Borrow
+          </button>
+        </span>
       </div>
 
     </td>

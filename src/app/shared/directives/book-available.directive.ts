@@ -13,18 +13,13 @@ import moment from "moment";
 })
 export class BookAvailableDirective {
 
-  @Input('libraryBookAvailable') book!: Book;
+  @Input('libraryBookAvailable') bookUser!: BookUser;
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (!this.book) {
+    if (!this.bookUser) {
       return;
     }
 
-    if (this.book.available !== undefined && this.book.availableInfo) {
-      this.matTooltip.message = this.book.availableInfo;
-      this.matTooltip.show();
-      return;
-    }
     this.getBookInfo();
   }
 
@@ -32,7 +27,6 @@ export class BookAvailableDirective {
     this.matTooltip.hide();
   }
 
-  private readonly bookService = inject(BookService);
   private readonly matTooltip = inject(MatTooltip);
   private readonly dateDiffPipe = inject(DateDiffPipe);
 
@@ -72,6 +66,17 @@ export class BookAvailableDirective {
     //   this.matTooltip.show();
 
     // });
+
+    const dateDiff = this.dateDiffPipe.transform(moment(), moment(this.bookUser.dueDate), 'day');
+
+    let message = '';
+    if (dateDiff! < 0) {
+      message = `Book is overdue! It was due ${-dateDiff} days ago.`;
+    } else {
+      message = `Book is not available! It will be returned in ${dateDiff} days.`;
+    }
+    this.matTooltip.message = message;
+    this.matTooltip.show();
 
   }
 }

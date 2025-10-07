@@ -26,7 +26,7 @@
   <!-- BorrowDate Column -->
   <ng-container matColumnDef="borrowDate">
     <th mat-header-cell *matHeaderCellDef> Borrow Date </th>
-    <td mat-cell *matCellDef="let element"> {{element.borrowDate}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.borrowedDate}} </td>
   </ng-container>
 
   <!-- DueDate Column -->
@@ -48,6 +48,6 @@
 
 
   <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: tableColumns;">
+  <tr mat-row *matRowDef="let row; columns: tableColumns;" [libraryBookAvailable]="row">
   </tr>
 </table>
