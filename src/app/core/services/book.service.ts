@@ -14,12 +14,6 @@ export class BookService {
     return this.httpClient.post<Book[]>(environment.apiUrl + 'book/list', {});
   }
 
-  getBookByIsbn(isbn: string): Observable<BookUser> {
-    return this.httpClient.get<BookUser[]>(`assets/mock-data/book-users.json`).pipe(
-      map((books: BookUser[]) => books.find(book => book.isbn === isbn) as BookUser)
-    );
-  }
-
   insert(request: any) {
     return this.httpClient.post<Book>(environment.apiUrl + 'book/insert', request);
   }

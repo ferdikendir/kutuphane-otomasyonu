@@ -47,6 +47,12 @@ export class SidenavComponent {
         icon: "person",
         route: "/users",
         permission: "admin"
+      },
+      {
+        label: "Book Users",
+        icon: "assignment_ind",
+        route: "/book-users",
+        permission: "admin"
       }
     ]
   }

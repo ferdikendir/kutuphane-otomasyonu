@@ -10,7 +10,7 @@ export class DashboardService {
 
   getMyBooks(userId: string) {
     return this.httpClient.get<BookUser[]>('assets/mock-data/book-users.json').pipe(
-      map((bookUsers: BookUser[]) => bookUsers.filter(bu => bu.userId === userId))
+      map((bookUsers: BookUser[]) => bookUsers.filter(bu => bu.user_id === userId))
     );
   }
 }
