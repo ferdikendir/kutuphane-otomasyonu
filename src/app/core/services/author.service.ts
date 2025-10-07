@@ -13,4 +13,12 @@ export class AuthorService {
     return this.httpClient.post<Author[]>(environment.apiUrl + 'author/list', {});
   }
 
+  insert(request: Author): Observable<Author> {
+    return this.httpClient.post<Author>(environment.apiUrl + 'author/insert', request);
+  }
+
+  update(request: Author): Observable<Author> {
+    return this.httpClient.post<Author>(environment.apiUrl + 'author/update', request);
+  }
+
 }

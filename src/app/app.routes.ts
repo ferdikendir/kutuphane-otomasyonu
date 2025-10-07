@@ -7,6 +7,7 @@ import { BookComponent } from '@modules/book/book.component';
 import { Error403Component } from '@modules/error-403/error-403.component';
 import { permissionGuard } from '@guards/permission.guard';
 import { AdminDashboardComponent } from '@modules/admin-dashboard/admin-dashboard.component';
+import { AuthorComponent } from './author/author.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,12 @@ export const routes: Routes = [
       {
         path: 'admin-dashboard',
         component: AdminDashboardComponent,
+        canActivate: [permissionGuard],
+        data: { roles: ['admin'] }
+      },
+      {
+        path: 'authors',
+        component: AuthorComponent,
         canActivate: [permissionGuard],
         data: { roles: ['admin'] }
       },
