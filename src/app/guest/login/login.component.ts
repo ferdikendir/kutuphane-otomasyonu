@@ -5,6 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { AuthService } from "@services/auth.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { RouterLink } from "@angular/router";
+import { LoginRequestModel } from "@models/auth.model";
 
 @Component({
   selector: "library-login",
@@ -42,7 +43,12 @@ export class LoginComponent {
 
     const { username, password } = this.form.value;
 
-    this.authService.login(username, password).pipe(
+    const request: LoginRequestModel = {
+      username,
+      password
+    };
+
+    this.authService.login(request).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(user => {
       if (!user) {

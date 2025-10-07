@@ -1,7 +1,9 @@
+import { Author } from "./author.model";
+
 export interface Book {
   isbn: string;
-  name: string;
-  author: string
+  title: string;
+  author: Author;
   edition: string;
   year: number;
   available?: boolean;

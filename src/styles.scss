@@ -94,6 +94,11 @@ $theme: mat.define-light-theme((color: (primary: $primary,
   margin: 5px;
 }
 
+.mx-2 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .p-5px {
   padding: 5px;
 }

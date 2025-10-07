@@ -1,8 +1,12 @@
-import { Component, computed, effect } from "@angular/core";
+import { Component, computed, effect, inject } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialog } from "@angular/material/dialog";
 import { MatDivider } from "@angular/material/divider";
 import { MatTableModule } from "@angular/material/table";
 import { Book } from "@models/book.model";
-import { allBooks } from "@store/book-users.store";
+import { BookDetailFormDialogComponent } from "@modules/book/book-detail-form-dialog/book-detail-form-dialog.component";
+import { AdminDashboardService } from "@services/admin-dashboard.service";
+import { allBooks, dispatchAllBooks } from "@store/book-users.store";
 
 @Component({
   selector: "library-book-list",
@@ -11,10 +15,13 @@ import { allBooks } from "@store/book-users.store";
   standalone: true,
   imports: [
     MatTableModule,
-    MatDivider
+    MatDivider,
+    MatButtonModule
   ],
 })
 export class BookListComponent {
+  private readonly dialog = inject(MatDialog);
+  private readonly adminDashboardService = inject(AdminDashboardService);
 
   tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
 
@@ -28,6 +35,12 @@ export class BookListComponent {
       this.dataSource = this.books();
     });
 
+  }
+
+  addNewBook() {
+    this.dialog.open(BookDetailFormDialogComponent, {
+      width: '400px'
+    }).afterClosed().subscribe((refresh: boolean) => dispatchAllBooks(this.adminDashboardService));
   }
 
 }

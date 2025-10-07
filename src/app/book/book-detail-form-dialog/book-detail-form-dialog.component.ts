@@ -17,6 +17,9 @@ import { addBook, removeBook, updateBook } from '@store/book.store';
 import { BookService } from '@services/book.service';
 import { BookUser } from '@models/book-user.model';
 import { ToastrService } from 'ngx-toastr';
+import { AuthorService } from '@services/author.service';
+import { MatSelectModule } from '@angular/material/select';
+import { AsyncPipe, NgFor } from '@angular/common';
 
 @Component({
   selector: "library-book-detail-form-dialog",
@@ -32,10 +35,13 @@ import { ToastrService } from 'ngx-toastr';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    AsyncPipe
   ],
   providers: [
-    BookService
+    BookService,
+    AuthorService
   ]
 })
 export class BookDetailFormDialogComponent {
@@ -43,14 +49,16 @@ export class BookDetailFormDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<BookDetailFormDialogComponent>);
   private readonly formBuilder = inject(FormBuilder);
   private readonly bookService = inject(BookService);
+  private readonly authorService = inject(AuthorService);
   private readonly toastr = inject(ToastrService);
 
   editMode = signal(!!this.data);
+  authors$ = this.authorService.list();
 
   bookForm: FormGroup = this.formBuilder.group({
     isbn: [{ value: '', disabled: this.editMode() }, { validators: [Validators.required] }],
-    name: ['', { validators: [Validators.required] }],
-    author: ['', { validators: [Validators.required] }],
+    title: ['', { validators: [Validators.required] }],
+    author_id: ['', { validators: [Validators.required] }],
     edition: ['', { validators: [Validators.required] }],
     year: ['', { validators: [Validators.required, Validators.pattern("^[0-9]{4}$")] }],
   });
@@ -66,6 +74,7 @@ export class BookDetailFormDialogComponent {
 
   }
 
+
   onNoClick(): void {
 
     this.dialogRef.close();
@@ -78,12 +87,15 @@ export class BookDetailFormDialogComponent {
     if (this.bookForm.valid) {
 
       const formValue = this.bookForm.getRawValue();
-      this.editMode() ? updateBook(formValue) : addBook(formValue);
 
-      const message = this.editMode() ? 'Book updated successfully.' : 'Book added successfully.';
-      this.toastr.success(message, 'Success');
+      this.bookService.insert(formValue).subscribe(response => {
 
-      this.dialogRef.close();
+        const message = this.editMode() ? 'Book updated successfully.' : 'Book added successfully.';
+        this.toastr.success(message, 'Success');
+
+        this.dialogRef.close({ refresh: true });
+
+      });
     }
 
   }

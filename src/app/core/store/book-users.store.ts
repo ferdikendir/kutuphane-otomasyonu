@@ -1,3 +1,4 @@
+import { AdminDashboardService } from '@services/admin-dashboard.service';
 import { books } from '@store/book.store';
 import { BookUser } from "@models/book-user.model";
 import { Store } from "./base/store";
@@ -15,7 +16,6 @@ const initialState: AdminDashboardStateModel = {
   users: [],
   books: []
 };
-
 
 const adminDashboardStore = new Store<AdminDashboardStateModel>(initialState);
 
@@ -35,7 +35,7 @@ export const dispatchAllUsers = (newState: User[]): void => {
 
 export const allBooks = adminDashboardStore.select(s => s.books as Book[]);
 
-export const dispatchAllBooks = (newState: Book[]): void => {
+export const dispatchAllBooks = (adminDashboardService: AdminDashboardService): void => {
   const snapshot = adminDashboardStore.snapshot();
-  adminDashboardStore.set({ ...snapshot, books: newState });
+  adminDashboardService.getAllBooks().subscribe(books => adminDashboardStore.set({ ...snapshot, books }));
 };

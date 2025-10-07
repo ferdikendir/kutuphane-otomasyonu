@@ -4,6 +4,7 @@ import { BookUser } from "@models/book-user.model";
 import { Book } from "@models/book.model";
 import { User } from "@models/user.model";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class AdminDashboardService {
@@ -15,7 +16,7 @@ export class AdminDashboardService {
   }
 
   getAllBooks(): Observable<Book[]> {
-    return this.httpClient.get<Book[]>('assets/mock-data/books.json');
+    return this.httpClient.post<Book[]>(environment.apiUrl + 'book/list', {});
   }
 
   getAllBookUsers(): Observable<BookUser[]> {

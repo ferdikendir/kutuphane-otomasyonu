@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{editMode() ? data.name : 'Add a new book'}}</h2>
+<h2 mat-dialog-title>{{editMode() ? data.title : 'Add a new book'}}</h2>
 <mat-dialog-content>
 
   <mat-divider></mat-divider>
@@ -12,12 +12,16 @@
 
     <mat-form-field class="w-100">
       <mat-label>Book Name</mat-label>
-      <input matInput formControlName="name">
+      <input matInput formControlName="title">
     </mat-form-field>
 
     <mat-form-field class="w-100">
       <mat-label>Author</mat-label>
-      <input matInput formControlName="author">
+      <select matNativeControl required formControlName="author_id">
+        @for (author of (authors$ |async); track author) {
+        <option [value]="author.id">{{author.name}} {{author.surname}}</option>
+        }
+      </select>
     </mat-form-field>
 
     <mat-form-field class="w-100">

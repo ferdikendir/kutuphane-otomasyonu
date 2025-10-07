@@ -45,11 +45,7 @@ export class AdminDashboardComponent {
   }
 
   getAllBooks() {
-    this.adminDashboardService.getAllBooks().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(books => {
-      dispatchAllBooks(books);
-    });
+    dispatchAllBooks(this.adminDashboardService);
   }
 
   getAllBookUsers() {
