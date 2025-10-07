@@ -3,9 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Book } from "@models/book.model";
-import { books, dispatchBooks } from "@store/book.store";
 import { BookService } from "@services/book.service";
-import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { BookAvailableDirective } from "@directives/book-available.directive";
 import {
@@ -14,6 +12,7 @@ import {
 import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-detail-form-dialog.component";
 import { MatDivider } from "@angular/material/divider";
 import { NgClass } from "@angular/common";
+import { books, dispatchBooks } from "@store/book.store";
 
 @Component({
   selector: "library-book",
@@ -46,9 +45,15 @@ export class BookComponent {
 
   loading = signal(true);
 
+  bookStore = computed(() => books());
+
   constructor() {
 
     this.fetchBooks();
+
+    effect(() => {
+      this.dataSource = this.bookStore();
+    });
 
   }
 
@@ -79,12 +84,8 @@ export class BookComponent {
 
   private fetchBooks() {
 
-    this.bookService.getAllBooks().pipe(
-      takeUntilDestroyed(this.destroyRef),
-      finalize(() => this.loading.set(false))
-    ).subscribe((data: Book[]) => {
-      this.dataSource = data;
-    });
+    dispatchBooks(this.bookService);
+
   }
 
 }
