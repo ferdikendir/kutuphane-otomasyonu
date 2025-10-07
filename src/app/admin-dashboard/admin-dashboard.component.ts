@@ -1,10 +1,9 @@
 import { Component, DestroyRef, computed, inject } from "@angular/core";
 import { allBookUsers, allBooks, dispatchAllBookUsers, dispatchAllBooks, dispatchAllUsers } from "@store/book-users.store";
 import { AdminDashboardService } from "@services/admin-dashboard.service";
-import { UserListComponent } from "@components/user-list/user-list.component";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { BookListComponent } from "@components/book-list/book-list.component";
-import { BookUserListComponent } from "@components/book-user-list/book-user-list.component";
+import { AuthorComponent } from "@modules/author/author.component";
+import { BookComponent } from "@modules/book/book.component";
 
 @Component({
   selector: "library-admin-dashboard",
@@ -12,12 +11,9 @@ import { BookUserListComponent } from "@components/book-user-list/book-user-list
   styleUrls: ["./admin-dashboard.component.scss"],
   standalone: true,
   providers: [
-    AdminDashboardService,
-    UserListComponent,
-    BookListComponent,
-    BookUserListComponent
+    AdminDashboardService
   ],
-  imports: [UserListComponent, BookListComponent, BookUserListComponent]
+  imports: [BookComponent, AuthorComponent]
 })
 export class AdminDashboardComponent {
 

@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthorService } from '@services/author.service';
 import { MatSelectModule } from '@angular/material/select';
 import { AsyncPipe, NgFor } from '@angular/common';
+import { Author } from '@models/author.model';
 
 @Component({
   selector: "library-book-detail-form-dialog",
@@ -70,6 +71,7 @@ export class BookDetailFormDialogComponent {
 
     if (this.data) {
       this.bookForm.patchValue(this.data);
+      this.bookForm.get('author_id')?.setValue(this.data.author.id);
     }
 
   }
@@ -88,41 +90,32 @@ export class BookDetailFormDialogComponent {
 
       const formValue = this.bookForm.getRawValue();
 
-      this.bookService.insert(formValue).subscribe(response => {
-
-        const message = this.editMode() ? 'Book updated successfully.' : 'Book added successfully.';
-        this.toastr.success(message, 'Success');
-
-        this.dialogRef.close({ refresh: true });
-
-      });
-    }
-
-  }
-
-
-  async onClickRemove(): Promise<void> {
-
-    if (this.editMode()) {
-
-      const exists = await this.checkBook();
-
-      if (exists) {
-        this.toastr.error('Cannot remove a book that is currently borrowed.', 'Error');
-        return;
+      if (this.editMode()) {
+        this.updateBook({ ...formValue });
+      } else {
+        this.insertBook({ ...formValue });
       }
 
-      removeBook(this.data.isbn);
-      this.toastr.success('Book removed successfully.', 'Success');
-      this.dialogRef.close();
     }
 
   }
 
-  checkBook(): Promise<boolean> {
-    return new Promise((resolve) => {
+  compareWith = (one: Author, two: Author) => one && two && (one.id === two.id);
 
-      this.bookService.getBookByIsbn(this.data.isbn).subscribe((book: BookUser) => resolve(!!book));
+  private insertBook(book: Book): void {
+    this.bookService.insert(book).subscribe(response => {
+      this.toastr.success('Book added successfully.', 'Success');
+
+      this.dialogRef.close(true);
+
+    });
+  }
+
+  private updateBook(book: Book): void {
+    this.bookService.update(book).subscribe(response => {
+      this.toastr.success('Book updated successfully.', 'Success');
+
+      this.dialogRef.close(true);
 
     });
   }

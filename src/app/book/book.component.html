@@ -1,4 +1,6 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" [ngClass]="{
+  'h-100 bg-white overflow-scroll': isWidget
+}">
 
   <div class="table-header align-center flex ">
     <p class="grow-1">Books</p>
@@ -52,7 +54,7 @@
 
 
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-    <tr (click)="updateBook(row)" mat-row *matRowDef="let row; columns: tableColumns;" [libraryBookAvailable]="row">
+    <tr (click)="updateBook(row)" mat-row *matRowDef="let row; columns: tableColumns;">
     </tr>
   </table>
 

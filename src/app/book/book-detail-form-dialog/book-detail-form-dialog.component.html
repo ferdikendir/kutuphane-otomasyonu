@@ -17,11 +17,11 @@
 
     <mat-form-field class="w-100">
       <mat-label>Author</mat-label>
-      <select matNativeControl required formControlName="author_id">
+      <mat-select matNativeControl required formControlName="author_id">
         @for (author of (authors$ |async); track author) {
-        <option [value]="author.id">{{author.name}} {{author.surname}}</option>
+        <mat-option [value]="author.id">{{author.name}} {{author.surname}}</mat-option>
         }
-      </select>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="w-100">
@@ -44,9 +44,6 @@
 <mat-dialog-actions class="mx-3 my-0 flex justify-between">
   <div>
 
-    @if (editMode()) {
-    <button mat-flat-button (click)="onClickRemove()" color="warn">Remove from Library</button>
-    }
 
   </div>
 

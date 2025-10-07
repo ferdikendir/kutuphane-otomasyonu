@@ -23,4 +23,8 @@ export class BookService {
   insert(request: any) {
     return this.httpClient.post<Book>(environment.apiUrl + 'book/insert', request);
   }
+
+  update(request: any) {
+    return this.httpClient.post<Book>(environment.apiUrl + 'book/update', request);
+  }
 }

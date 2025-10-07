@@ -7,6 +7,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { Author } from "@models/author.model";
 import { AuthorService } from "@services/author.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "library-author-form-dialog",
@@ -32,6 +33,7 @@ export class AuthorFormDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<AuthorFormDialogComponent>);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authorService = inject(AuthorService);
+  private readonly toastr = inject(ToastrService);
 
   editMode = signal(!!this.data);
 
@@ -73,6 +75,7 @@ export class AuthorFormDialogComponent {
     const author: Author = { ...this.form.getRawValue() } as Author;
 
     this.authorService.insert(author).subscribe(() => {
+      this.toastr.success('Author added successfully.', 'Success');
       this.dialogRef.close(true);
     });
   }
@@ -84,6 +87,7 @@ export class AuthorFormDialogComponent {
     } as Author;
 
     this.authorService.update(author).subscribe(() => {
+      this.toastr.success('Author updated successfully.', 'Success');
       this.dialogRef.close(true);
     });
   }

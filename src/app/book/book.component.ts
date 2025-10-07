@@ -1,4 +1,4 @@
-import { Component, DestroyRef, computed, effect, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, computed, effect, inject, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -13,6 +13,7 @@ import {
 } from '@angular/material/dialog';
 import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-detail-form-dialog.component";
 import { MatDivider } from "@angular/material/divider";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: "library-book",
@@ -24,7 +25,8 @@ import { MatDivider } from "@angular/material/divider";
     MatTooltipModule,
     BookAvailableDirective,
     MatButtonModule,
-    MatDivider
+    MatDivider,
+    NgClass
   ],
   providers: [
     BookService
@@ -32,11 +34,11 @@ import { MatDivider } from "@angular/material/divider";
 })
 export class BookComponent {
 
+  @Input() isWidget = false;
+
   private readonly bookService = inject(BookService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
-
-  bookStore = computed(() => books())
 
   tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
 
@@ -46,33 +48,42 @@ export class BookComponent {
 
   constructor() {
 
-    effect(() => {
-
-      this.bookService.getAllBooks().pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.loading.set(false))
-      ).subscribe((data: Book[]) => {
-        dispatchBooks(data);
-      });
-
-    });
-
-    effect(() => {
-      this.dataSource = this.bookStore();
-    });
+    this.fetchBooks();
 
   }
 
   addNewBook() {
     this.dialog.open(BookDetailFormDialogComponent, {
       width: '400px'
-    });
+    }).afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result) {
+        this.fetchBooks();
+      }
+    });;
   }
 
   updateBook(book: Book) {
     this.dialog.open(BookDetailFormDialogComponent, {
       width: '400px',
       data: book
+    }).afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result) {
+        this.fetchBooks();
+      }
+    });
+  }
+
+  private fetchBooks() {
+
+    this.bookService.getAllBooks().pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loading.set(false))
+    ).subscribe((data: Book[]) => {
+      this.dataSource = data;
     });
   }
 

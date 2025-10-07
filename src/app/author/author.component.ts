@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, inject, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
@@ -8,6 +8,7 @@ import { Author } from "@models/author.model";
 import { AuthorService } from "@services/author.service";
 import { finalize } from "rxjs";
 import { AuthorFormDialogComponent } from "./author-form-dialog/author-form-dialog.component";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: "library-author",
@@ -20,10 +21,13 @@ import { AuthorFormDialogComponent } from "./author-form-dialog/author-form-dial
   imports: [
     MatTableModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    NgClass
   ]
 })
 export class AuthorComponent {
+
+  @Input() isWidget = false;
 
   private readonly authorService = inject(AuthorService);
   private readonly destroyRef = inject(DestroyRef);
