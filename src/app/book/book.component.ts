@@ -13,6 +13,7 @@ import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-de
 import { MatDivider } from "@angular/material/divider";
 import { NgClass } from "@angular/common";
 import { books, dispatchBooks } from "@store/book.store";
+import { BookListComponent } from "@components/book-list/book-list.component";
 
 @Component({
   selector: "library-book",
@@ -20,12 +21,11 @@ import { books, dispatchBooks } from "@store/book.store";
   styleUrls: ["./book.component.scss"],
   standalone: true,
   imports: [
-    MatTableModule,
-    MatTooltipModule,
     BookAvailableDirective,
     MatButtonModule,
     MatDivider,
-    NgClass
+    NgClass,
+    BookListComponent
   ],
   providers: [
     BookService
@@ -39,21 +39,11 @@ export class BookComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
-  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
-
-  dataSource: Book[] = [];
-
-  loading = signal(true);
-
   bookStore = computed(() => books());
 
   constructor() {
 
     this.fetchBooks();
-
-    effect(() => {
-      this.dataSource = this.bookStore();
-    });
 
   }
 
