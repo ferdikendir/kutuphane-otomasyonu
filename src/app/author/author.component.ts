@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, effect, inject, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
@@ -6,9 +6,11 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatTableModule } from "@angular/material/table";
 import { Author } from "@models/author.model";
 import { AuthorService } from "@services/author.service";
-import { finalize } from "rxjs";
 import { AuthorFormDialogComponent } from "./author-form-dialog/author-form-dialog.component";
 import { NgClass } from "@angular/common";
+import { authors, dispatchAuthors } from "@modules/core/store/author.store";
+import { dispatchBookUsers } from "@modules/core/store/book-user.store";
+import { BookUserService } from "@services/book-user.service";
 
 @Component({
   selector: "library-author",
@@ -16,7 +18,8 @@ import { NgClass } from "@angular/common";
   styleUrls: ["./author.component.scss"],
   standalone: true,
   providers: [
-    AuthorService
+    AuthorService,
+    BookUserService
   ],
   imports: [
     MatTableModule,
@@ -30,6 +33,7 @@ export class AuthorComponent {
   @Input() isWidget = false;
 
   private readonly authorService = inject(AuthorService);
+  private readonly bookUserService = inject(BookUserService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
@@ -40,17 +44,12 @@ export class AuthorComponent {
   loading = signal(false);
 
   constructor() {
-    this.fetchAuthors();
-  }
 
-  private fetchAuthors() {
-    this.loading.set(true);
-    this.authorService.list().pipe(
-      takeUntilDestroyed(this.destroyRef),
-      finalize(() => this.loading.set(false))
-    ).subscribe((data) => {
-      this.dataSource = data;
+    effect(() => {
+      this.dataSource = authors();
     });
+
+    this.fetchAuthors();
   }
 
   addNewAuthor() {
@@ -74,8 +73,14 @@ export class AuthorComponent {
     ).subscribe((result) => {
       if (result) {
         this.fetchAuthors();
+
+        dispatchBookUsers(this.bookUserService);
       }
     });
+  }
+
+  private fetchAuthors() {
+    dispatchAuthors(this.authorService);
   }
 
 }
