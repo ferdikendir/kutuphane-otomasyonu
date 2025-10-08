@@ -11,7 +11,6 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req.clone()).pipe(
     catchError((error: any) => {
       if (error instanceof HttpErrorResponse) {
-        console.error('API Error:', error);
         if (error.status === 400) {
           toastrService.error(error.error.message, 'Error')
         }
