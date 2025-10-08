@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, Renderer2, inject, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Directive, ElementRef, Input, Renderer2, inject } from "@angular/core";
 
 @Directive({
   selector: "[libraryUserRole]",

@@ -1,9 +1,7 @@
-import { Directive, ElementRef, HostListener, Input, inject } from "@angular/core";
+import { Directive, HostListener, Input, inject } from "@angular/core";
 import { MatTooltip } from "@angular/material/tooltip";
 import { BookUser } from "@models/book-user.model";
-import { Book } from "@models/book.model";
 import { DateDiffPipe } from "@pipes/date-diff.pipe";
-import { BookService } from "@services/book.service";
 import moment from "moment";
 
 @Directive({

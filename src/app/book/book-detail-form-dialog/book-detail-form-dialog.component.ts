@@ -17,7 +17,7 @@ import { BookService } from '@services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorService } from '@services/author.service';
 import { MatSelectModule } from '@angular/material/select';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Author } from '@models/author.model';
 
 @Component({

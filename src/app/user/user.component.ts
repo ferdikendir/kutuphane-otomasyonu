@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common";
-import { Component, DestroyRef, Input, effect, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, effect, inject } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatDialog } from "@angular/material/dialog";
 import { MatDivider } from "@angular/material/divider";
@@ -30,8 +30,6 @@ export class UserComponent {
   private readonly userService = inject(UserService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
-
-  loading = false;
 
   tableColumns: string[] = ['name', 'surname', 'username', 'role'];
 

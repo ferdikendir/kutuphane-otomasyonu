@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { BookUser } from "@models/book-user.model";
-import { map } from "rxjs";
 import { environment } from "src/environments/environment";
 
 @Injectable()

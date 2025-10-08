@@ -1,11 +1,8 @@
-import { Component, DestroyRef, Input, computed, effect, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, computed, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MatTableModule } from "@angular/material/table";
-import { MatTooltipModule } from "@angular/material/tooltip";
 import { Book } from "@models/book.model";
 import { BookService } from "@services/book.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { BookAvailableDirective } from "@directives/book-available.directive";
 import {
   MatDialog
 } from '@angular/material/dialog';

@@ -2,8 +2,6 @@ import { Component, DestroyRef, computed, effect, inject, signal } from "@angula
 import { MatTableModule } from "@angular/material/table";
 import { DashboardService } from "@services/dashboard.service";
 import { BookUser } from "@models/book-user.model";
-import { finalize } from "rxjs";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { dispatchMyBooks, myBooks } from "@store/dashboard.store";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DateDiffPipe } from "@pipes/date-diff.pipe";
