@@ -102,6 +102,8 @@ export class BookComponent {
     ).subscribe((result) => {
       if (result) {
         this.fetchBooks();
+
+        dispatchBookUsers(this.bookUserService);
       }
     });
   }

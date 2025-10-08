@@ -9,6 +9,8 @@ import { AuthorService } from "@services/author.service";
 import { AuthorFormDialogComponent } from "./author-form-dialog/author-form-dialog.component";
 import { NgClass } from "@angular/common";
 import { authors, dispatchAuthors } from "@modules/core/store/author.store";
+import { dispatchBookUsers } from "@modules/core/store/book-user.store";
+import { BookUserService } from "@services/book-user.service";
 
 @Component({
   selector: "library-author",
@@ -16,7 +18,8 @@ import { authors, dispatchAuthors } from "@modules/core/store/author.store";
   styleUrls: ["./author.component.scss"],
   standalone: true,
   providers: [
-    AuthorService
+    AuthorService,
+    BookUserService
   ],
   imports: [
     MatTableModule,
@@ -30,6 +33,7 @@ export class AuthorComponent {
   @Input() isWidget = false;
 
   private readonly authorService = inject(AuthorService);
+  private readonly bookUserService = inject(BookUserService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
@@ -69,6 +73,8 @@ export class AuthorComponent {
     ).subscribe((result) => {
       if (result) {
         this.fetchAuthors();
+
+        dispatchBookUsers(this.bookUserService);
       }
     });
   }
