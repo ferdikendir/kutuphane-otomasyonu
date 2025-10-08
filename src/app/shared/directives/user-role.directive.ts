@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, Renderer2, inject, SimpleChanges } from "@angular/core";
 
 @Directive({
-  selector: "[appUserRole]",
+  selector: "[libraryUserRole]",
   standalone: true,
 })
 export class UserRoleDirective implements AfterViewInit {
@@ -10,7 +10,7 @@ export class UserRoleDirective implements AfterViewInit {
 
   private readonly renderer2 = inject(Renderer2);
 
-  @Input('appUserRole') role!: string;
+  @Input('libraryUserRole') role!: string;
 
   ngAfterViewInit(): void {
 
