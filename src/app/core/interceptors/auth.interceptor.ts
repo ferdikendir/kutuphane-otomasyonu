@@ -9,6 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  if (req.url.includes('/auth/') || !authService.getToken()) {
+    return next(req);
+  }
+
   const clonedReq = req.clone({
     setHeaders: {
       Authorization: `Bearer ${authService.getToken()}`
@@ -16,7 +20,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   });
 
   return next(clonedReq).pipe(catchError(errorObj => {
-    console.log('Error intercepted:', errorObj);
     if (
       errorObj instanceof HttpErrorResponse &&
       errorObj.status === 401

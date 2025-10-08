@@ -36,7 +36,7 @@ export class BookUserComponent {
   }
 
 
-  private fetchBookUsers() {
+  fetchBookUsers() {
     dispatchBookUsers(this.bookUserService);
   }
 

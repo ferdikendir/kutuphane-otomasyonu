@@ -32,40 +32,10 @@ export class BookAvailableDirective {
 
   private getBookInfo() {
 
-    // this.bookService.getBookByIsbn(this.book.isbn).subscribe((data: BookUser) => {
-
-    //   if (data) {
-
-    //     this.book.available = false;
-
-    //     const dateDiff = 4
-    //     //this.dateDiffPipe.transform(moment(), moment(data.deadline), 'day');
-
-    //     if (dateDiff! < 0) {
-
-    //       this.book.availableInfo = `Kitap Gecikmiş! ${-dateDiff} gün önce iade edilmeliydi.`;
-
-    //     }
-    //     // else if (dateDiff === 0) {
-
-    //     //   this.book.availableInfo = 'Kitap Bugün İade Edilecek!';
-
-    //     // }
-    //     else {
-
-    //       this.book.availableInfo = `Kitap Mevcut Değil! ${dateDiff} gün içinde iade edilecek.`;
-
-    //     }
-
-    //   } else {
-    //     this.book.available = true;
-    //     this.book.availableInfo = 'Kitap Mevcut!';
-    //   }
-
-    //   this.matTooltip.message = this.book.availableInfo;
-    //   this.matTooltip.show();
-
-    // });
+    if (this.bookUser.returned) {
+      this.matTooltip.hide();
+      return;
+    }
 
     const dateDiff = this.dateDiffPipe.transform(moment(), moment(this.bookUser.dueDate), 'day');
 

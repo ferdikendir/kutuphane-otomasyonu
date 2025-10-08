@@ -1,11 +1,10 @@
 import { Component, DestroyRef, computed, effect, inject, signal } from "@angular/core";
-import { user } from "@modules/core/store/user.store";
 import { MatTableModule } from "@angular/material/table";
 import { DashboardService } from "@services/dashboard.service";
 import { BookUser } from "@models/book-user.model";
 import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { dispatchMyBooks, myBooks } from "@modules/core/store/dashboard.store";
+import { dispatchMyBooks, myBooks } from "@store/dashboard.store";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DateDiffPipe } from "@pipes/date-diff.pipe";
 import { WidgetComponent } from "./widget/widget.component";
@@ -44,27 +43,20 @@ export class DashboardComponent {
 
   loading = signal(true);
 
-  userStore = computed(() => user());
-
   dashboardStore = computed(() => myBooks());
 
   constructor() {
 
-    effect(() => {
-
-      this.dashboardService.getMyBooks(this.userStore().id as string).pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.loading.set(false))
-      ).subscribe((data) => {
-        dispatchMyBooks(data);
-      });
-
-    });
+    this.fetchData();
 
     effect(() => {
       this.dataSource = this.dashboardStore();
     });
 
+  }
+
+  private fetchData() {
+    dispatchMyBooks(this.dashboardService);
   }
 
 }

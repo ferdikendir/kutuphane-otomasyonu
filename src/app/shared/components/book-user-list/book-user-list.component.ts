@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from "@angular/core";
+import { Component, EventEmitter, Output, effect, inject, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -24,8 +24,12 @@ import { BookUserService } from "@services/book-user.service";
 })
 export class BookUserListComponent {
 
+  @Output() fetchList = new EventEmitter<void>();
 
-  tableColumns: string[] = ['isbn', 'bookName', 'authorName', 'userName', 'borrowDate', 'dueDate'];
+  private readonly bookUserService = inject(BookUserService);
+
+
+  tableColumns: string[] = ['isbn', 'bookName', 'authorName', 'userName', 'borrowDate', 'dueDate', 'actions'];
 
   dataSource: BookUser[] = [];
 
@@ -37,6 +41,10 @@ export class BookUserListComponent {
       this.dataSource = bookUsers();
     });
 
+  }
+
+  returnBook(bookUser: BookUser) {
+    this.bookUserService.returnBook({ id: bookUser.id! }).subscribe(response => this.fetchList.emit());
   }
 
 }

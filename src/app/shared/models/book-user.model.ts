@@ -9,4 +9,5 @@ export interface BookUser {
   book?: Book;
   borrowedDate: string;
   dueDate: string;
+  returned?: boolean;
 }

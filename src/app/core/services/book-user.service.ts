@@ -25,4 +25,8 @@ export class BookUserService {
     return this.httpClient.post<boolean>(environment.apiUrl + 'book_user/check_book', { id });
   }
 
+  returnBook(request: { id: string }): Observable<BookUser> {
+    return this.httpClient.post<BookUser>(environment.apiUrl + 'book_user/mark_as_returned', request);
+  }
+
 }

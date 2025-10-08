@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { AuthorComponent } from "@modules/author/author.component";
+import { BookUserComponent } from "@modules/book-user/book-user.component";
 import { BookComponent } from "@modules/book/book.component";
 import { BookService } from "@services/book.service";
+import { BookUserListComponent } from "@components/book-user-list/book-user-list.component";
 
 @Component({
   selector: "library-admin-dashboard",
@@ -11,7 +13,7 @@ import { BookService } from "@services/book.service";
   providers: [
     BookService
   ],
-  imports: [BookComponent, AuthorComponent]
+  imports: [BookComponent, AuthorComponent, BookUserComponent, BookUserListComponent]
 })
 export class AdminDashboardComponent {
 

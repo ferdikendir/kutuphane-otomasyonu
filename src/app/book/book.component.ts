@@ -16,6 +16,7 @@ import { books, dispatchBooks } from "@store/book.store";
 import { BookListComponent } from "@components/book-list/book-list.component";
 import { BookBorrowDialogComponent } from "./book-borrow-dialog/book-borrow-dialog.component";
 import { BookUserService } from "@services/book-user.service";
+import { dispatchBookUsers } from "@modules/core/store/book-user.store";
 
 @Component({
   selector: "library-book",
@@ -75,6 +76,10 @@ export class BookComponent {
       ).subscribe((result) => {
         if (result) {
           this.fetchBooks();
+
+          if (this.isWidget) {
+            dispatchBookUsers(this.bookUserService);
+          }
         }
       });
     });

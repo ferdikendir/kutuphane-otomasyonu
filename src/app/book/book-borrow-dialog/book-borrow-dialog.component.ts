@@ -49,6 +49,9 @@ export class BookBorrowDialogComponent {
 
   users$ = this.userService.userList();
 
+  min = moment().add(4, 'days');
+  max = moment().add(15, 'days');
+
   form = this.formBuilder.group({
     id: [''],
     user_id: ['', { validators: [Validators.required] }],

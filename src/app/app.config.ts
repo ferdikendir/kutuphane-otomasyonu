@@ -10,6 +10,7 @@ import { authInterceptor } from '@interceptors/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { apiInterceptor } from '@interceptors/api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     },
     provideMomentDateAdapter(),
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([authInterceptor, apiInterceptor])
     ),
     AuthService
   ]
