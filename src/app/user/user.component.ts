@@ -8,6 +8,7 @@ import { User } from "@models/user.model";
 import { UserService } from "@services/user.service";
 import { UserDetailDialogComponent } from "./user-detail-dialog/user-detail-dialog.component";
 import { dispatchUserList, userList } from "@store/user-list-store";
+import { UserRoleDirective } from "@directives/user-role.directive";
 
 @Component({
   selector: "library-user",
@@ -17,7 +18,8 @@ import { dispatchUserList, userList } from "@store/user-list-store";
   imports: [
     MatTableModule,
     NgClass,
-    MatDivider
+    MatDivider,
+    UserRoleDirective
   ],
   providers: [UserService]
 })
@@ -31,7 +33,7 @@ export class UserComponent {
 
   loading = false;
 
-  tableColumns: string[] = ['name', 'surname', 'username'];
+  tableColumns: string[] = ['name', 'surname', 'username', 'role'];
 
   dataSource: User[] = [];
 

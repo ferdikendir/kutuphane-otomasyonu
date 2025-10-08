@@ -24,7 +24,6 @@ import { dispatchBookUsers } from "@modules/core/store/book-user.store";
   styleUrls: ["./book.component.scss"],
   standalone: true,
   imports: [
-    BookAvailableDirective,
     MatButtonModule,
     MatDivider,
     NgClass,
