@@ -1,6 +1,6 @@
 import { BookUser } from "@models/book-user.model";
 import { Store } from "./base/store";
-import { DashboardService } from "@services/dashboard.service";
+import { BookUserService } from "@services/book-user.service";
 
 export interface DashboardStateModel {
   myBooks: BookUser[];
@@ -14,7 +14,7 @@ const dashboardStore = new Store<DashboardStateModel>(initialState);
 
 export const myBooks = dashboardStore.select(s => s.myBooks as BookUser[]);
 
-export const dispatchMyBooks = (dashboardService: DashboardService): void => {
+export const dispatchMyBooks = (dashboardService: BookUserService): void => {
   const snapshot = dashboardStore.snapshot();
   dashboardService.getMyBooks().subscribe(myBooks => dashboardStore.set({ ...snapshot, myBooks }));
 };

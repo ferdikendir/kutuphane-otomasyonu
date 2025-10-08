@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { BookUser } from "@models/book-user.model";
 import { Book } from "@models/book.model";
-import { Observable, map } from "rxjs";
 import { environment } from "src/environments/environment";
 
 @Injectable()
@@ -11,14 +9,14 @@ export class BookService {
   private readonly httpClient = inject(HttpClient);
 
   getAllBooks() {
-    return this.httpClient.post<Book[]>(environment.apiUrl + 'book/list', {});
+    return this.httpClient.post<Book[]>(environment.apiUrl + 'Book/List', {});
   }
 
   insert(request: any) {
-    return this.httpClient.post<Book>(environment.apiUrl + 'book/insert', request);
+    return this.httpClient.post<Book>(environment.apiUrl + 'Book/Insert', request);
   }
 
   update(request: any) {
-    return this.httpClient.post<Book>(environment.apiUrl + 'book/update', request);
+    return this.httpClient.post<Book>(environment.apiUrl + 'Book/Update', request);
   }
 }

@@ -10,23 +10,27 @@ export class BookUserService {
   private readonly httpClient = inject(HttpClient);
 
   insert(request: BookUser) {
-    return this.httpClient.post<BookUser>(environment.apiUrl + 'book_user/insert', request);
+    return this.httpClient.post<BookUser>(environment.apiUrl + 'BookUser/Insert', request);
   }
 
   update(request: BookUser) {
-    return this.httpClient.post<BookUser>(environment.apiUrl + 'book_user/update', request);
+    return this.httpClient.post<BookUser>(environment.apiUrl + 'BookUser/Update', request);
   }
 
   list() {
-    return this.httpClient.post<BookUser[]>(environment.apiUrl + 'book_user/list', {});
+    return this.httpClient.post<BookUser[]>(environment.apiUrl + 'BookUser/List', {});
   }
 
   checkBook(id: string): Observable<boolean> {
-    return this.httpClient.post<boolean>(environment.apiUrl + 'book_user/check_book', { id });
+    return this.httpClient.post<boolean>(environment.apiUrl + 'BookUser/CheckBook', { id });
   }
 
   returnBook(request: { id: string }): Observable<BookUser> {
-    return this.httpClient.post<BookUser>(environment.apiUrl + 'book_user/mark_as_returned', request);
+    return this.httpClient.post<BookUser>(environment.apiUrl + 'BookUser/MarkAsReturned', request);
+  }
+
+  getMyBooks() {
+    return this.httpClient.post<BookUser[]>(environment.apiUrl + 'BookUser/MyBookList', {});
   }
 
 }
