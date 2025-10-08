@@ -1,12 +1,11 @@
-import { NgClass } from "@angular/common";
-import { Component, computed, effect } from "@angular/core";
-import { MatDivider } from "@angular/material/divider";
+import { Component, EventEmitter, Output, effect, inject, signal } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { BookAvailableDirective } from "@directives/book-available.directive";
 import { BookUser } from "@models/book-user.model";
-import { allBookUsers } from "@modules/core/store/book-users.store";
-import { DateDiffPipe } from "@pipes/date-diff.pipe";
-import moment from "moment";
+import { bookUsers } from "@store/book-user.store";
+import { BookUserService } from "@services/book-user.service";
 
 @Component({
   selector: "library-book-user-list",
@@ -15,26 +14,37 @@ import moment from "moment";
   standalone: true,
   imports: [
     MatTableModule,
-    MatDivider,
-    DateDiffPipe,
-    NgClass,
-    MatTooltipModule
+    MatTooltipModule,
+    BookAvailableDirective,
+    MatButtonModule
+  ],
+  providers: [
+    BookUserService
   ]
 })
 export class BookUserListComponent {
 
-  tableColumns: string[] = ['isbn', 'bookName', 'author', 'edition', 'year', 'userName', 'date', 'deadline'];
+  @Output() fetchList = new EventEmitter<void>();
+
+  private readonly bookUserService = inject(BookUserService);
+
+
+  tableColumns: string[] = ['isbn', 'bookName', 'authorName', 'userName', 'borrowDate', 'dueDate', 'actions'];
 
   dataSource: BookUser[] = [];
 
-  bookUsers = computed(() => allBookUsers());
-
-  today = moment();
+  loading = signal(true);
 
   constructor() {
 
-    effect(() => this.dataSource = this.bookUsers());
+    effect(() => {
+      this.dataSource = bookUsers();
+    });
 
+  }
+
+  returnBook(bookUser: BookUser) {
+    this.bookUserService.returnBook({ id: bookUser.id! }).subscribe(response => this.fetchList.emit());
   }
 
 }

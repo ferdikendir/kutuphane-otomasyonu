@@ -13,18 +13,13 @@ import moment from "moment";
 })
 export class BookAvailableDirective {
 
-  @Input('libraryBookAvailable') book!: Book;
+  @Input('libraryBookAvailable') bookUser!: BookUser;
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (!this.book) {
+    if (!this.bookUser) {
       return;
     }
 
-    if (this.book.available !== undefined && this.book.availableInfo) {
-      this.matTooltip.message = this.book.availableInfo;
-      this.matTooltip.show();
-      return;
-    }
     this.getBookInfo();
   }
 
@@ -32,43 +27,26 @@ export class BookAvailableDirective {
     this.matTooltip.hide();
   }
 
-  private readonly bookService = inject(BookService);
   private readonly matTooltip = inject(MatTooltip);
   private readonly dateDiffPipe = inject(DateDiffPipe);
 
   private getBookInfo() {
 
-    this.bookService.getBookByIsbn(this.book.isbn).subscribe((data: BookUser) => {
+    if (this.bookUser.returned) {
+      this.matTooltip.hide();
+      return;
+    }
 
-      if (data) {
+    const dateDiff = this.dateDiffPipe.transform(moment(), moment(this.bookUser.dueDate), 'day');
 
-        this.book.available = false;
-
-        const dateDiff = this.dateDiffPipe.transform(moment(), moment(data.deadline), 'day');
-
-        if (dateDiff! < 0) {
-
-          this.book.availableInfo = `Kitap Gecikmiş! ${-dateDiff} gün önce iade edilmeliydi.`;
-
-        } else if (dateDiff === 0) {
-
-          this.book.availableInfo = 'Kitap Bugün İade Edilecek!';
-
-        } else {
-
-          this.book.availableInfo = `Kitap Mevcut Değil! ${dateDiff} gün içinde iade edilecek.`;
-
-        }
-
-      } else {
-        this.book.available = true;
-        this.book.availableInfo = 'Kitap Mevcut!';
-      }
-
-      this.matTooltip.message = this.book.availableInfo;
-      this.matTooltip.show();
-
-    });
+    let message = '';
+    if (dateDiff! < 0) {
+      message = `Book is overdue! It was due ${-dateDiff} days ago.`;
+    } else {
+      message = `Book is not available! It will be returned in ${dateDiff} days.`;
+    }
+    this.matTooltip.message = message;
+    this.matTooltip.show();
 
   }
 }

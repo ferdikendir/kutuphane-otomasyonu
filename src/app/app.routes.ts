@@ -7,6 +7,9 @@ import { BookComponent } from '@modules/book/book.component';
 import { Error403Component } from '@modules/error-403/error-403.component';
 import { permissionGuard } from '@guards/permission.guard';
 import { AdminDashboardComponent } from '@modules/admin-dashboard/admin-dashboard.component';
+import { AuthorComponent } from '@modules/author/author.component';
+import { UserComponent } from '@modules/user/user.component';
+import { BookUserComponent } from '@modules/book-user/book-user.component';
 
 export const routes: Routes = [
   {
@@ -32,8 +35,26 @@ export const routes: Routes = [
         data: { roles: ['admin'] }
       },
       {
+        path: 'authors',
+        component: AuthorComponent,
+        canActivate: [permissionGuard],
+        data: { roles: ['admin'] }
+      },
+      {
         path: 'books',
         component: BookComponent,
+        canActivate: [permissionGuard],
+        data: { roles: ['admin'] }
+      },
+      {
+        path: 'users',
+        component: UserComponent,
+        canActivate: [permissionGuard],
+        data: { roles: ['admin'] }
+      },
+      {
+        path: 'book-users',
+        component: BookUserComponent,
         canActivate: [permissionGuard],
         data: { roles: ['admin'] }
       }

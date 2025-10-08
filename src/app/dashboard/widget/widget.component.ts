@@ -27,7 +27,12 @@ export class WidgetComponent {
 
   private calculateDateDiff(bookUsers: BookUser[], max: number = 7, min: number = 0): number {
     return bookUsers.filter(bookUser => {
-      const dateDiff = this.dateDiffPipe.transform(moment(), moment(bookUser.deadline), 'day') ?? -1;
+
+      if (bookUser.returned) {
+        return false;
+      }
+
+      const dateDiff = this.dateDiffPipe.transform(moment(), moment(bookUser.dueDate), 'day') ?? -1;
 
       if (dateDiff <= max && dateDiff >= min) {
         return true;

@@ -1,11 +1,9 @@
-import { Component, DestroyRef, computed, effect, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, computed, effect, inject, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Book } from "@models/book.model";
-import { books, dispatchBooks } from "@store/book.store";
 import { BookService } from "@services/book.service";
-import { finalize } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { BookAvailableDirective } from "@directives/book-available.directive";
 import {
@@ -13,6 +11,12 @@ import {
 } from '@angular/material/dialog';
 import { BookDetailFormDialogComponent } from "./book-detail-form-dialog/book-detail-form-dialog.component";
 import { MatDivider } from "@angular/material/divider";
+import { NgClass } from "@angular/common";
+import { books, dispatchBooks } from "@store/book.store";
+import { BookListComponent } from "@components/book-list/book-list.component";
+import { BookBorrowDialogComponent } from "./book-borrow-dialog/book-borrow-dialog.component";
+import { BookUserService } from "@services/book-user.service";
+import { dispatchBookUsers } from "@modules/core/store/book-user.store";
 
 @Component({
   selector: "library-book",
@@ -20,60 +24,95 @@ import { MatDivider } from "@angular/material/divider";
   styleUrls: ["./book.component.scss"],
   standalone: true,
   imports: [
-    MatTableModule,
-    MatTooltipModule,
-    BookAvailableDirective,
     MatButtonModule,
-    MatDivider
+    MatDivider,
+    NgClass,
+    BookListComponent
   ],
   providers: [
-    BookService
+    BookService,
+    BookUserService
   ]
 })
 export class BookComponent {
 
+  @Input() isWidget = false;
+
   private readonly bookService = inject(BookService);
+  private readonly bookUserService = inject(BookUserService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
-  bookStore = computed(() => books())
-
-  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
-
-  dataSource: Book[] = [];
-
-  loading = signal(true);
+  bookStore = computed(() => books());
 
   constructor() {
 
-    effect(() => {
+    this.fetchBooks();
 
-      this.bookService.getAllBooks().pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.loading.set(false))
-      ).subscribe((data: Book[]) => {
-        dispatchBooks(data);
+  }
+
+  checkBook(id: string) {
+    this.bookUserService.checkBook(id).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      this.fetchBooks();
+    });
+  }
+
+  borrowBook(book: Book) {
+
+    this.bookUserService.checkBook(book.id as string).subscribe((isAvailable: boolean) => {
+      if (!isAvailable) {
+        alert('This book is not available for borrowing.');
+        return;
+      }
+
+      this.dialog.open(BookBorrowDialogComponent, {
+        width: '400px',
+        data: book
+      }).afterClosed().pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe((result) => {
+        if (result) {
+          this.fetchBooks();
+
+          if (this.isWidget) {
+            dispatchBookUsers(this.bookUserService);
+          }
+        }
       });
-
     });
-
-    effect(() => {
-      this.dataSource = this.bookStore();
-    });
-
   }
 
   addNewBook() {
     this.dialog.open(BookDetailFormDialogComponent, {
       width: '400px'
-    });
+    }).afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result) {
+        this.fetchBooks();
+      }
+    });;
   }
 
   updateBook(book: Book) {
     this.dialog.open(BookDetailFormDialogComponent, {
       width: '400px',
       data: book
+    }).afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result) {
+        this.fetchBooks();
+      }
     });
+  }
+
+  private fetchBooks() {
+
+    dispatchBooks(this.bookService);
+
   }
 
 }

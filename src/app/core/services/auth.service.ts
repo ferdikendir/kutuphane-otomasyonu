@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { User } from "@models/user.model";
 import { Observable, map, tap } from "rxjs";
 import { dispatchUser } from "@store/user.store";
-import { AuthRequestModel } from "@models/auth.model";
+import { AuthRequestModel, LoginRequestModel, LoginResponseModel } from "@models/auth.model";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -25,20 +25,18 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Observable<User | undefined> {
+  login(request: LoginRequestModel): Observable<User> {
 
-    return this.httpClient.post<User[]>('http://localhost:8080/api/auth/login', { username, password }).pipe(
-      map(users => users.find((user: User) => user.username === username && user.password === password)),
-      tap(user => {
-        this.isAuthenticated = !!user;
-
-        localStorage.setItem('user', JSON.stringify(user));
-        dispatchUser(user ?? {});
+    return this.httpClient.post<LoginResponseModel>(environment.apiUrl + 'auth/login', request).pipe(
+      tap(response => {
+        this.isAuthenticated = !!response.token;
+        this.setLocalStorage(response);
+        dispatchUser(response.user ?? {});
         this.router.navigate([
-          user?.role === 'admin' ? '/admin-dashboard' : '/dashboard'
+          response.user?.role === 'admin' ? '/admin-dashboard' : '/dashboard'
         ]);
-
-      })
+      }),
+      map(response => response.user)
     );
 
   }
@@ -46,6 +44,7 @@ export class AuthService {
   logout(): void {
     this.isAuthenticated = false;
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {
@@ -57,9 +56,18 @@ export class AuthService {
     return userJson ? JSON.parse(userJson) as User : null;
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   isAdmin(): boolean {
     const user = this.getCurrentUser();
     return user?.role === 'admin';
+  }
+
+  private setLocalStorage(loginResponse: LoginResponseModel): void {
+    localStorage.setItem('user', JSON.stringify(loginResponse.user));
+    localStorage.setItem('token', loginResponse.token);
   }
 
   register(request: AuthRequestModel): Observable<User> {

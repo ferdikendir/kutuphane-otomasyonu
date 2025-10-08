@@ -5,7 +5,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatError, MatInputModule } from "@angular/material/input";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@services/auth.service";
-import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "library-register",
@@ -26,7 +25,6 @@ export class RegisterComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly toastr = inject(ToastrService);
 
   form: FormGroup = this.formBuilder.group({
     name: ["", { validators: [Validators.required] }],
@@ -67,8 +65,6 @@ export class RegisterComponent {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(response => {
       this.router.navigate(["/auth/login"]);
-    }, error => {
-      this.toastr.error(error.message, "Error");
     });
 
   }

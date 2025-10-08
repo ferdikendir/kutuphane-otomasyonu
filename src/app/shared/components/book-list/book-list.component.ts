@@ -1,8 +1,9 @@
-import { Component, computed, effect } from "@angular/core";
-import { MatDivider } from "@angular/material/divider";
+import { books } from '@store/book.store';
+import { Component, EventEmitter, Output, effect, signal } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
 import { Book } from "@models/book.model";
-import { allBooks } from "@store/book-users.store";
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: "library-book-list",
@@ -11,24 +12,28 @@ import { allBooks } from "@store/book-users.store";
   standalone: true,
   imports: [
     MatTableModule,
-    MatDivider
-  ],
+    MatButtonModule,
+    MatTooltipModule
+  ]
 })
 export class BookListComponent {
 
-  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year'];
+  @Output() emitUpdateBook = new EventEmitter<Book>();
+  @Output() emitBorrowBook = new EventEmitter<Book>();
+
+
+  tableColumns: string[] = ['isbn', 'name', 'author', 'edition', 'year', 'actions'];
 
   dataSource: Book[] = [];
 
-  books = computed(() => allBooks());
+  loading = signal(true);
 
   constructor() {
 
     effect(() => {
-      this.dataSource = this.books();
+      this.dataSource = books();
     });
 
   }
 
 }
-

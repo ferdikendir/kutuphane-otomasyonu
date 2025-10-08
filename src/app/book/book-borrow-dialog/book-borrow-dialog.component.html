@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{data.title + ' borrow'}}</h2>
+<mat-dialog-content>
+
+  <mat-divider></mat-divider>
+
+  <div class="mt-2" [formGroup]="form">
+
+    <mat-form-field class="w-100">
+      <mat-label>User</mat-label>
+      <mat-select matNativeControl required formControlName="user_id">
+        @for (user of (users$ |async); track user) {
+        <mat-option [value]="user.id">{{user.name}} {{user.surname}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" [min]="min" [max]="max" formControlName="due_date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions class="mx-3 my-0 flex justify-between">
+  <div>
+
+
+  </div>
+
+  <div>
+    <button mat-flat-button (click)="onNoClick()">Cancel</button>
+    <button mat-flat-button cdkFocusInitial color="primary" (click)="onSaveClick()">Save</button>
+  </div>
+</mat-dialog-actions>
