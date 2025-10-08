@@ -23,17 +23,6 @@
       <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="not-found">
-      <td mat-footer-cell *matFooterCellDef [colSpan]="tableColumns.length" class="flex justify-center align-center">
-        Sonuç Bulunamadı.</td>
-    </ng-container>
-
-    @if (dataSource.length === 0 && !loading()) {
-
-    <tr mat-footer-row *matFooterRowDef="['not-found']" class="flex"></tr>
-
-    }
-
 
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
     <tr (click)="updateAuthor(row)" mat-row *matRowDef="let row; columns: tableColumns;">
