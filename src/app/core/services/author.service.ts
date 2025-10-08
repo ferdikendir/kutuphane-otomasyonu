@@ -10,15 +10,15 @@ export class AuthorService {
   private readonly httpClient = inject(HttpClient);
 
   list(): Observable<Author[]> {
-    return this.httpClient.post<Author[]>(environment.apiUrl + 'author/list', {});
+    return this.httpClient.post<Author[]>(environment.apiUrl + 'Author/List', {});
   }
 
   insert(request: Author): Observable<Author> {
-    return this.httpClient.post<Author>(environment.apiUrl + 'author/insert', request);
+    return this.httpClient.post<Author>(environment.apiUrl + 'Author/Insert', request);
   }
 
   update(request: Author): Observable<Author> {
-    return this.httpClient.post<Author>(environment.apiUrl + 'author/update', request);
+    return this.httpClient.post<Author>(environment.apiUrl + 'Author/Update', request);
   }
 
 }

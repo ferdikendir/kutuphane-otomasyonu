@@ -27,7 +27,7 @@ export class AuthService {
 
   login(request: LoginRequestModel): Observable<User> {
 
-    return this.httpClient.post<LoginResponseModel>(environment.apiUrl + 'auth/login', request).pipe(
+    return this.httpClient.post<LoginResponseModel>(environment.apiUrl + 'Auth/Login', request).pipe(
       tap(response => {
         this.isAuthenticated = !!response.token;
         this.setLocalStorage(response);
@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   register(request: AuthRequestModel): Observable<User> {
-    return this.httpClient.post<User>(environment.apiUrl + 'auth/register', request);
+    return this.httpClient.post<User>(environment.apiUrl + 'Auth/Register', request);
   }
 
 }

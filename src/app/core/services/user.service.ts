@@ -10,11 +10,11 @@ export class UserService {
   private readonly httpClient = inject(HttpClient);
 
   userList(): Observable<User[]> {
-    return this.httpClient.post<User[]>(environment.apiUrl + "user/list", {});
+    return this.httpClient.post<User[]>(environment.apiUrl + "User/List", {});
   }
 
   update(user: User): Observable<User> {
-    return this.httpClient.post<User>(environment.apiUrl + "user/update", user);
+    return this.httpClient.post<User>(environment.apiUrl + "User/Update", user);
   }
 
 }

@@ -9,14 +9,14 @@ export class BookService {
   private readonly httpClient = inject(HttpClient);
 
   getAllBooks() {
-    return this.httpClient.post<Book[]>(environment.apiUrl + 'book/list', {});
+    return this.httpClient.post<Book[]>(environment.apiUrl + 'Book/List', {});
   }
 
   insert(request: any) {
-    return this.httpClient.post<Book>(environment.apiUrl + 'book/insert', request);
+    return this.httpClient.post<Book>(environment.apiUrl + 'Book/Insert', request);
   }
 
   update(request: any) {
-    return this.httpClient.post<Book>(environment.apiUrl + 'book/update', request);
+    return this.httpClient.post<Book>(environment.apiUrl + 'Book/Update', request);
   }
 }
