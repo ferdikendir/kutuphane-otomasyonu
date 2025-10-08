@@ -1,11 +1,13 @@
 import { NgClass } from "@angular/common";
-import { Component, DestroyRef, Input, inject, signal } from "@angular/core";
+import { Component, DestroyRef, Input, effect, inject, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { MatDialog } from "@angular/material/dialog";
 import { MatDivider } from "@angular/material/divider";
 import { MatTableModule } from "@angular/material/table";
 import { User } from "@models/user.model";
 import { UserService } from "@services/user.service";
-import { finalize } from "rxjs";
+import { UserDetailDialogComponent } from "./user-detail-dialog/user-detail-dialog.component";
+import { dispatchUserList, userList } from "@store/user-list-store";
 
 @Component({
   selector: "library-user",
@@ -25,24 +27,37 @@ export class UserComponent {
 
   private readonly userService = inject(UserService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
 
-  loading = signal(false);
+  loading = false;
 
   tableColumns: string[] = ['name', 'surname', 'username'];
 
   dataSource: User[] = [];
 
   constructor() {
+
+    effect(() => {
+      this.dataSource = userList();
+    });
+
     this.fetchUsers();
   }
 
-  private fetchUsers() {
-    this.loading.set(true);
-    this.userService.userList().pipe(
-      takeUntilDestroyed(this.destroyRef),
-      finalize(() => this.loading.set(false))
-    ).subscribe((res) => {
-      this.dataSource = res;
+  updateUser(user: User) {
+    this.dialog.open(UserDetailDialogComponent, {
+      width: '400px',
+      data: user
+    }).afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result) => {
+      if (result) {
+        this.fetchUsers();
+      }
     });
+  }
+
+  private fetchUsers() {
+    dispatchUserList(this.userService);
   }
 }

@@ -13,4 +13,8 @@ export class UserService {
     return this.httpClient.post<User[]>(environment.apiUrl + "user/list", {});
   }
 
+  update(user: User): Observable<User> {
+    return this.httpClient.post<User>(environment.apiUrl + "user/update", user);
+  }
+
 }

@@ -33,15 +33,9 @@
         Sonuç Bulunamadı.</td>
     </ng-container>
 
-    @if (dataSource.length === 0 && !loading()) {
-
-    <tr mat-footer-row *matFooterRowDef="['not-found']" class="flex"></tr>
-
-    }
-
 
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: tableColumns;">
+    <tr (click)="updateUser(row)" mat-row *matRowDef="let row; columns: tableColumns;">
     </tr>
   </table>
 
